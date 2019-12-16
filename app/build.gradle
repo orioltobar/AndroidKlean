@@ -1,3 +1,5 @@
+import buildSrc.Variables
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
@@ -28,7 +30,7 @@ dependencies {
     implementation project(':networkdatasource')
     implementation project(':navigation')
 
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Variables.kotlin_version}"
     implementation "androidx.appcompat:appcompat:$androidx_version"
     implementation "androidx.core:core-ktx:$androidx_version"
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
