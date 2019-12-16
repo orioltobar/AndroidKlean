@@ -1,2 +1,2 @@
-include ':app', ':data', ':domain', ':navigation', ':networkdatasource', ':diskdatasource'
+include ':app', ':data', ':domain', ':navigation', ':networkdatasource', ':diskdatasource', ':commons'
 rootProject.name='AndroidKlean'
