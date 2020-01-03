@@ -1,7 +1,24 @@
+import buildSrc.Variables
+
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation project(':domain')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:${Variables.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Variables.coroutines_version}"
+
+    // Testing
+    testImplementation "junit:junit:${Variables.junit_version}"
+    testImplementation "io.mockk:mockk:${Variables.mockk_version}"
 }
 

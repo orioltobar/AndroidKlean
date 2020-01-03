@@ -3,6 +3,7 @@ import buildSrc.Variables
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -21,6 +22,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
 }
 
 dependencies {
@@ -29,12 +34,19 @@ dependencies {
     implementation project(':diskdatasource')
     implementation project(':networkdatasource')
     implementation project(':navigation')
+    implementation project(':features')
 
-    implementation"org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Variables.kotlin_version}"
-    implementation "androidx.appcompat:appcompat:$androidx_version"
-    implementation "androidx.core:core-ktx:$androidx_version"
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:${Variables.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
+
+    implementation "androidx.appcompat:appcompat:${Variables.androidx_version}"
+    implementation "androidx.core:core-ktx:${Variables.androidx_version}"
+    implementation "androidx.constraintlayout:constraintlayout:${Variables.androidx_constraintlayout_version}"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation "androidx.test.ext:junit:$junit_test_version"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_version"
+    androidTestImplementation "androidx.test.ext:junit:${Variables.junit_test_version}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Variables.espresso_version}"
 }

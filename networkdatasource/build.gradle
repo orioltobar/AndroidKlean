@@ -1,6 +1,34 @@
+import buildSrc.Variables
+
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
+apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation project(':data')
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
+
+    // Dagger
+    implementation "com.google.dagger:dagger:${Variables.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:${Variables.retrofit_version}") {
+        // Exclude Retrofit’s OkHttp peer-dependency module in order to define our own module import
+        exclude module: 'okhttp'
+    }
+    implementation "com.squareup.retrofit2:converter-gson:${Variables.retrofit_version}"
+
+    // OkHttp
+    implementation "com.squareup.okhttp3:okhttp:${Variables.okHttp_version}"
+    implementation "com.squareup.okhttp3:logging-interceptor:${Variables.okHttp_version}"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Variables.coroutines_version}"
+
+    // Testing
+    testImplementation "junit:junit:${Variables.junit_version}"
+    testImplementation "io.mockk:mockk:${Variables.mockk_version}"
 }
