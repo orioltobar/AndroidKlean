@@ -6,16 +6,19 @@ import com.orioltobar.domain.repositories.MovieRepository
 import com.orioltobar.networkdatasource.api.data.MovieDataSourceImpl
 import dagger.Binds
 import dagger.Module
+import javax.inject.Singleton
 
 /**
  * Module that binds dependencies for repositories and datasources
  */
 @Module
-abstract class DataBinderModule {
+abstract class ApplicationDataBindsModule {
 
     @Binds
+    @Singleton
     internal abstract fun bindsMovieRepository(repository: MovieRepositoryImpl): MovieRepository
 
     @Binds
-    internal abstract fun bindsMovieDataSource(datasource: MovieDataSourceImpl): MovieDataSource
+    @Singleton
+    internal abstract fun bindsMovieDataSource(dataSource: MovieDataSourceImpl): MovieDataSource
 }

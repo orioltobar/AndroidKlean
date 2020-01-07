@@ -51,7 +51,7 @@ class NetworkModule(
         OkHttpClient.Builder().apply {
             addInterceptor(UrlParamInterceptor(networkProvider))
             addInterceptor(HttpLoggingInterceptor().apply {
-                // TODO: Add isDebug variable to swith betwenn Level.BODY and Level.NONE
+                // TODO: Add isDebug variable to switch between Level.BODY and Level.NONE
                 level = HttpLoggingInterceptor.Level.BODY
             })
             readTimeout(RETROFIT_TIMEOUT, TimeUnit.SECONDS)

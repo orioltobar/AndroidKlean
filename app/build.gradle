@@ -34,7 +34,7 @@ dependencies {
     implementation project(':diskdatasource')
     implementation project(':networkdatasource')
     implementation project(':navigation')
-    implementation project(':features')
+    implementation project(':presentation')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"

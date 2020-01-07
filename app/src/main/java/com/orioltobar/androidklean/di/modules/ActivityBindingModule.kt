@@ -6,9 +6,9 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module
-abstract class MainActivityModule {
+abstract class ActivityBindingModule {
 
-    @ActivityScope
     @ContributesAndroidInjector
+    @ActivityScope
     internal abstract fun bindMainActivity(): MainActivity
 }

@@ -3,7 +3,7 @@ package com.orioltobar.androidklean
 import android.annotation.SuppressLint
 import android.os.Bundle
 import com.orioltobar.androidklean.base.BaseActivity
-import com.orioltobar.androidklean.di.modules.AppModule.Companion.NAME_BASE_URL
+import com.orioltobar.androidklean.di.modules.AppModule.NAME_BASE_URL
 import com.orioltobar.commons.Success
 import com.orioltobar.domain.usecases.GetMovieUseCase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -39,7 +39,7 @@ class MainActivity : BaseActivity() {
 
             if (response is Success) {
                 val movieText = "${response.result.originalTitle} ${response.result.id}"
-                textView.text = movieText
+                textView2.text = movieText
             }
         }
     }
