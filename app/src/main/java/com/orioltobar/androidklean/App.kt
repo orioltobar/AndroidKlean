@@ -1,17 +1,12 @@
 package com.orioltobar.androidklean
 
-import android.app.Application
-import com.orioltobar.androidklean.di.AppComponent
 import com.orioltobar.androidklean.di.DaggerAppComponent
+import com.orioltobar.androidklean.di.modules.AppModule
+import dagger.android.AndroidInjector
+import dagger.android.support.DaggerApplication
 
-class App: Application() {
+class App : DaggerApplication() {
 
-    val component: AppComponent by lazy {
-        DaggerAppComponent.builder().build()
-    }
-
-    override fun onCreate() {
-        super.onCreate()
-        component.inject(this)
-    }
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> =
+        DaggerAppComponent.builder().appModule(AppModule(this)).build()
 }

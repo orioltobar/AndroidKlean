@@ -42,6 +42,12 @@ dependencies {
     // Dagger
     implementation "com.google.dagger:dagger:${Variables.dagger_version}"
     kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
+    implementation "com.google.dagger:dagger-android:${Variables.dagger_version}"
+    implementation "com.google.dagger:dagger-android-support:${Variables.dagger_version}"
+    kapt "com.google.dagger:dagger-android-processor:${Variables.dagger_version}"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Variables.coroutines_version}"
 
     implementation "androidx.appcompat:appcompat:${Variables.androidx_version}"
     implementation "androidx.core:core-ktx:${Variables.androidx_version}"

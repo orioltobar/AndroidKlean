@@ -6,6 +6,7 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
     implementation project(':data')
+    implementation project(':commons')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
@@ -15,15 +16,15 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:${Variables.retrofit_version}") {
+    api("com.squareup.retrofit2:retrofit:${Variables.retrofit_version}") {
         // Exclude Retrofit’s OkHttp peer-dependency module in order to define our own module import
         exclude module: 'okhttp'
     }
-    implementation "com.squareup.retrofit2:converter-gson:${Variables.retrofit_version}"
+    api "com.squareup.retrofit2:converter-gson:${Variables.retrofit_version}"
 
     // OkHttp
-    implementation "com.squareup.okhttp3:okhttp:${Variables.okHttp_version}"
-    implementation "com.squareup.okhttp3:logging-interceptor:${Variables.okHttp_version}"
+    api "com.squareup.okhttp3:okhttp:${Variables.okHttp_version}"
+    api "com.squareup.okhttp3:logging-interceptor:${Variables.okHttp_version}"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Variables.coroutines_version}"
