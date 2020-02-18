@@ -5,6 +5,7 @@ import com.orioltobar.androidklean.App
 import com.orioltobar.androidklean.di.modules.ActivityBindingModule
 import com.orioltobar.androidklean.di.modules.AppModule
 import com.orioltobar.networkdatasource.di.NetworkModule
+import com.orioltobar.networkdatasource.di.NetworkServicesModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -17,7 +18,8 @@ import javax.inject.Singleton
         AndroidInjectionModule::class,
         AppModule::class,
         ActivityBindingModule::class,
-        NetworkModule::class]
+        NetworkModule::class,
+        NetworkServicesModule::class]
 )
 interface AppComponent : AndroidInjector<App> {
 

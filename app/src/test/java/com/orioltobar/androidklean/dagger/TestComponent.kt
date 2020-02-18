@@ -1,15 +1,21 @@
-package com.orioltobar.networkdatasource.di
+package com.orioltobar.androidklean.dagger
 
+import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.orioltobar.commons.Constants.API_KEY
-import com.orioltobar.commons.Constants.RETROFIT_TIMEOUT
-import com.orioltobar.commons.Constants.USER_LANGUAGE
-import com.orioltobar.networkdatasource.api.data.MovieService
+import com.orioltobar.androidklean.App
+import com.orioltobar.androidklean.di.modules.ActivityBindingModule
+import com.orioltobar.androidklean.di.modules.AppModule
+import com.orioltobar.commons.Constants
+import com.orioltobar.networkdatasource.di.BaseUrl
 import com.orioltobar.networkdatasource.interceptors.UrlParamInterceptor
 import com.orioltobar.networkdatasource.providers.NetworkProvider
+import dagger.BindsInstance
+import dagger.Component
 import dagger.Module
 import dagger.Provides
+import dagger.android.AndroidInjectionModule
+import dagger.android.AndroidInjector
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -18,8 +24,30 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
 
+
+@Singleton
+@Component(
+    modules = [
+        AndroidInjectionModule::class,
+        AppModule::class,
+        ActivityBindingModule::class,
+        TestNetworkModule::class]
+)
+
+interface AppComponent : AndroidInjector<App> {
+
+    @Component.Factory
+    interface Factory {
+        fun create(@BindsInstance applicationContext: Context, @BindsInstance @BaseUrl baseUrl: String): AppComponent
+    }
+}
+
 @Module
-object NetworkModule {
+object TestNetworkModule {
+
+    @Provides
+    @BaseUrl
+    fun provideBaseUrl() = "http://127.0.0.1:8080"
 
     @Provides
     @Singleton
@@ -66,20 +94,14 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideNetworkProvider(
-        @Named(API_KEY) apiKey: String,
-        @Named(USER_LANGUAGE) language: String
+        @Named(Constants.API_KEY) apiKey: String,
+        @Named(Constants.USER_LANGUAGE) language: String
     ): NetworkProvider = object : NetworkProvider {
         override val apiKey: String
             get() = apiKey
         override val language: String
             get() = language
     }
-}
 
-@Module
-object NetworkServicesModule {
-
-    @Provides
-    @Singleton
-    fun provideMovieService(retrofit: Retrofit) = retrofit.create(MovieService::class.java)
+    const val RETROFIT_TIMEOUT = 60L
 }

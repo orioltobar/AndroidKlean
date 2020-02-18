@@ -12,13 +12,13 @@ import javax.inject.Singleton
  * Module that binds dependencies for repositories and datasources
  */
 @Module
-abstract class ApplicationDataBindsModule {
+interface ApplicationDataBindsModule {
 
     @Binds
     @Singleton
-    internal abstract fun bindsMovieRepository(repository: MovieRepositoryImpl): MovieRepository
+    fun bindsMovieRepository(repository: MovieRepositoryImpl): MovieRepository
 
     @Binds
     @Singleton
-    internal abstract fun bindsMovieDataSource(dataSource: MovieDataSourceImpl): MovieDataSource
+    fun bindsMovieDataSource(dataSource: MovieDataSourceImpl): MovieDataSource
 }
