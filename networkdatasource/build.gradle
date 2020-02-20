@@ -8,9 +8,6 @@ dependencies {
     implementation project(':data')
     implementation project(':commons')
 
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
-
     // Dagger
     implementation "com.google.dagger:dagger:${Variables.dagger_version}"
     kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
@@ -25,11 +22,4 @@ dependencies {
     // OkHttp
     api "com.squareup.okhttp3:okhttp:${Variables.okHttp_version}"
     api "com.squareup.okhttp3:logging-interceptor:${Variables.okHttp_version}"
-
-    // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Variables.coroutines_version}"
-
-    // Testing
-    testImplementation "junit:junit:${Variables.junit_version}"
-    testImplementation "io.mockk:mockk:${Variables.mockk_version}"
 }
