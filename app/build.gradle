@@ -41,16 +41,20 @@ dependencies {
 
     // Dagger
     implementation "com.google.dagger:dagger:${Variables.dagger_version}"
-    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
     implementation "com.google.dagger:dagger-android:${Variables.dagger_version}"
     implementation "com.google.dagger:dagger-android-support:${Variables.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
     kapt "com.google.dagger:dagger-android-processor:${Variables.dagger_version}"
 
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Variables.coroutines_version}"
 
+    // Lifecyle
+    implementation "androidx.lifecycle:lifecycle-runtime:${Variables.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${Variables.androidx_lifecycle}"
+
     implementation "androidx.appcompat:appcompat:${Variables.androidx_version}"
-    implementation "androidx.core:core-ktx:${Variables.androidx_version}"
+    implementation "androidx.core:core-ktx:${Variables.androidx_core_version}"
     implementation "androidx.constraintlayout:constraintlayout:${Variables.androidx_constraintlayout_version}"
     testImplementation 'junit:junit:4.12'
     androidTestImplementation "androidx.test.ext:junit:${Variables.junit_test_version}"

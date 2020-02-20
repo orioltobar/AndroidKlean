@@ -2,6 +2,7 @@ package com.orioltobar.androidklean.di.components
 
 import android.content.Context
 import com.orioltobar.androidklean.App
+import com.orioltobar.androidklean.di.modules.ViewModelModule
 import com.orioltobar.androidklean.di.modules.ActivityBindingModule
 import com.orioltobar.androidklean.di.modules.AppModule
 import com.orioltobar.networkdatasource.di.NetworkModule
@@ -19,7 +20,8 @@ import javax.inject.Singleton
         AppModule::class,
         ActivityBindingModule::class,
         NetworkModule::class,
-        NetworkServicesModule::class]
+        NetworkServicesModule::class,
+        ViewModelModule::class]
 )
 interface AppComponent : AndroidInjector<App> {
 

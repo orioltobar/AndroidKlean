@@ -2,6 +2,7 @@ import buildSrc.Variables
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 29
@@ -17,8 +18,21 @@ android {
 }
 
 dependencies {
+    implementation project(':commons')
+    implementation project(':domain')
+
+    // Dagger
+    implementation "com.google.dagger:dagger:${Variables.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
+
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
+
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:${Variables.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${Variables.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${Variables.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${Variables.androidx_lifecycle}"
 
     // Testing
     androidTestImplementation "androidx.test.ext:junit:${Variables.junit_test_version}"

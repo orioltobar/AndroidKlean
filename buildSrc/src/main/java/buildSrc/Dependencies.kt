@@ -3,6 +3,8 @@ package buildSrc
 object Variables {
 
     const val androidx_version = "1.1.0"
+    const val androidx_core_version = "1.2.0"
+    const val androidx_lifecycle = "2.2.0"
     const val gradle_version = "3.5.3"
     const val kotlin_version = "1.3.61"
     const val retrofit_version = "2.7.0"
