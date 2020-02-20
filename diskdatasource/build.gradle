@@ -26,8 +26,8 @@ dependencies {
 
     // Room
     kapt "androidx.room:room-compiler:${Variables.room_version}"
-    implementation "androidx.room:room-runtime:${Variables.room_version}"
-    implementation "androidx.room:room-ktx:${Variables.room_version}"
+    api "androidx.room:room-runtime:${Variables.room_version}"
+    api "androidx.room:room-ktx:${Variables.room_version}"
 
     // Testing
     testImplementation "androidx.room:room-testing:${Variables.room_version}"

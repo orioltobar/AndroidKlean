@@ -16,6 +16,7 @@ object Variables {
     const val dagger_version = "2.25.4"
     const val espresso_version = "3.2.0"
     const val junit_test_version = "1.1.1"
+    const val gson_version = "2.8.6"
 
     // AndroidX
     const val androidx_appcompat_version = "1.0.2"

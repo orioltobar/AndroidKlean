@@ -1,7 +1,8 @@
 package com.orioltobar.data.repositories
 
 import com.orioltobar.commons.Response
-import com.orioltobar.data.datasources.MovieDataSource
+import com.orioltobar.data.datasources.DbDataSource
+import com.orioltobar.data.datasources.NetworkDataSource
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.domain.repositories.MovieRepository
 import kotlinx.coroutines.delay
@@ -10,7 +11,9 @@ import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import kotlin.random.Random
 
-class MovieRepositoryImpl @Inject constructor(private val dataSource: MovieDataSource) :
+class MovieRepositoryImpl @Inject constructor(
+    private val dataSource: NetworkDataSource,
+    private val dbDataSource: DbDataSource) :
     MovieRepository {
 
     override suspend fun getMovie(id: Long): Response<MovieModel>  {

@@ -1,7 +1,9 @@
 package com.orioltobar.androidklean.di.modules
 
-import com.orioltobar.data.datasources.MovieDataSource
+import com.orioltobar.data.datasources.DbDataSource
+import com.orioltobar.data.datasources.NetworkDataSource
 import com.orioltobar.data.repositories.MovieRepositoryImpl
+import com.orioltobar.diskdatasource.data.MovieDataBaseImpl
 import com.orioltobar.domain.repositories.MovieRepository
 import com.orioltobar.networkdatasource.api.data.MovieDataSourceImpl
 import dagger.Binds
@@ -20,5 +22,9 @@ interface ApplicationDataBindsModule {
 
     @Binds
     @Singleton
-    fun bindsMovieDataSource(dataSource: MovieDataSourceImpl): MovieDataSource
+    fun bindsMovieDataSource(dataSource: MovieDataSourceImpl): NetworkDataSource
+
+    @Binds
+    @Singleton
+    fun provideMovieDataBaseDataSource(dataSource: MovieDataBaseImpl): DbDataSource
 }
