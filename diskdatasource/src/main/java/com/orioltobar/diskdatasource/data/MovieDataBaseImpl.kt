@@ -1,8 +1,9 @@
 package com.orioltobar.diskdatasource.data
 
+import com.orioltobar.commons.Failure
 import com.orioltobar.commons.Response
-import com.orioltobar.commons.Success
 import com.orioltobar.data.datasources.DbDataSource
+import com.orioltobar.diskdatasource.Cache
 import com.orioltobar.diskdatasource.dao.MovieDao
 import com.orioltobar.diskdatasource.mappers.MovieDbMapper
 import com.orioltobar.domain.models.movie.MovieModel
@@ -14,5 +15,17 @@ class MovieDataBaseImpl @Inject constructor(
 ) : DbDataSource {
 
     override suspend fun getMovie(id: Long): Response<MovieModel> =
-        Success(movieDao.getMovie(id).let { movieDbMapper.map(it) })
+        movieDao.getMovie(id).let {
+            // Check null is necessary because if model doesn't exist in db, it is null.
+            @Suppress("SENSELESS_COMPARISON")
+            if (it == null) {
+                Failure(null)
+            } else {
+                Cache.checkTimestampCache(it.timeStamp, movieDbMapper.map(it))
+            }
+        }
+
+    override suspend fun saveMovie(movie: MovieModel) {
+        return movieDao.insertWithTimestamp(movieDbMapper.mapToDbModel(movie))
+    }
 }

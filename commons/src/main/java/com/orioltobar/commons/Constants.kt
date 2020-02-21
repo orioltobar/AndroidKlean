@@ -6,6 +6,7 @@ object Constants {
 
     // Network constants
     const val RETROFIT_TIMEOUT = 60L
+    const val CACHE_TIME_MINUTES = 10L
 
     const val BASE_URL = "BASE_URL"
 }

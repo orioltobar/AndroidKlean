@@ -6,4 +6,6 @@ import com.orioltobar.domain.models.movie.MovieModel
 interface DbDataSource {
 
     suspend fun getMovie(id: Long): Response<MovieModel>
+
+    suspend fun saveMovie(movie: MovieModel)
 }
