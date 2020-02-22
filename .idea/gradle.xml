@@ -14,7 +14,6 @@
             <option value="$PROJECT_DIR$/data" />
             <option value="$PROJECT_DIR$/diskdatasource" />
             <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/navigation" />
             <option value="$PROJECT_DIR$/networkdatasource" />
             <option value="$PROJECT_DIR$/presentation" />
           </set>

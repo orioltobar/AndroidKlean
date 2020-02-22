@@ -17,6 +17,7 @@ object Variables {
     const val espresso_version = "3.2.0"
     const val junit_test_version = "1.1.1"
     const val gson_version = "2.8.6"
+    const val navigation_version = "2.3.0-alpha02"
 
     // AndroidX
     const val androidx_appcompat_version = "1.0.2"
