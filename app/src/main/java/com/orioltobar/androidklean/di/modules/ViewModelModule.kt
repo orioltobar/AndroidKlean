@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.orioltobar.androidklean.di.ViewModelFactory
 import com.orioltobar.androidklean.di.ViewModelKey
-import com.orioltobar.features.MovieViewModel
+import com.orioltobar.features.viewmodel.MovieViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap

@@ -4,6 +4,7 @@ import com.orioltobar.commons.Constants
 import com.orioltobar.commons.Failure
 import com.orioltobar.commons.Response
 import com.orioltobar.commons.Success
+import com.orioltobar.domain.models.ErrorModel
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -15,11 +16,11 @@ object Cache {
      *
      * @return Success if the value is not expired, failure otherwise.
      */
-    fun <T> checkTimestampCache(timestamp: Long, model: T?): Response<T> = model?.let {
+    fun <T> checkTimestampCache(timestamp: Long, model: T?): Response<T, ErrorModel> = model?.let {
         if (Date().time - timestamp < TimeUnit.MINUTES.toMillis(Constants.CACHE_TIME_MINUTES)) {
             Success(it)
         } else {
-            Failure(null)
+            Failure(ErrorModel(""))
         }
-    } ?: run { Failure(null) }
+    } ?: run { Failure(ErrorModel("")) }
 }

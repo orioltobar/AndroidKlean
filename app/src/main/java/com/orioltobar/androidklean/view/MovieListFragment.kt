@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
+import com.orioltobar.domain.models.ErrorModel
 import kotlinx.android.synthetic.main.movie_list_fragment.*
 
 class MovieListFragment : BaseFragment() {
@@ -24,5 +25,13 @@ class MovieListFragment : BaseFragment() {
             val direction = MovieListFragmentDirections.actionMovieListFragmentToMovieFragment(550L)
             findNavController().navigate(direction)
         }
+    }
+
+    override fun onError(error: ErrorModel) {
+        println("TRACK STATUS: ERROR!")
+    }
+
+    override fun onLoading() {
+        println("TRACK STATUS: LOADING...")
     }
 }

@@ -1,8 +1,9 @@
 package com.orioltobar.networkdatasource.utils
 
-import com.orioltobar.commons.Response
 import com.orioltobar.commons.Failure
+import com.orioltobar.commons.Response
 import com.orioltobar.commons.Success
+import com.orioltobar.domain.models.ErrorModel
 
 /**
  * This function is used to wrap a [call] to an API in a safe way. The result is expressed as a
@@ -10,14 +11,14 @@ import com.orioltobar.commons.Success
  */
 suspend fun <T> safeApiCall(
     call: suspend () -> T
-): Response<T> =
+): Response<T, ErrorModel> =
     try {
         val response = call()
         if (response == null) {
-            Failure(null)
+            Failure(ErrorModel(""))
         } else {
             Success(response)
         }
     } catch (exception: Exception) {
-        Failure(exception)
+        Failure(ErrorModel(exception.message ?: ""))
     }

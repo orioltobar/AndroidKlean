@@ -1,14 +1,14 @@
 package com.orioltobar.commons
 
-sealed class Response<out T>
+sealed class Response<out T, out E>
 
-class Success<T>(val result: T) : Response<T>()
-class Failure(val error: Throwable?) : Response<Nothing>()
+class Success<T>(val result: T) : Response<T, Nothing>()
+class Failure<E>(val error: E) : Response<Nothing, E>()
 
 /**
  * Then response of [T] is mapped using a [lambda] to return a new CoroutineResponse type [V].
  */
-inline fun <T, V> Response<T>.mapResponse(lambda: (T) -> V): Response<V> {
+inline fun <T, V, E> Response<T, E>.mapResponse(lambda: (T) -> V): Response<V, E> {
     return when (this) {
         is Success -> {
             Success(lambda(this.result))
@@ -25,9 +25,9 @@ inline fun <T, V> Response<T>.mapResponse(lambda: (T) -> V): Response<V> {
  *
  * @return The result of the took action.
  */
-inline fun <T, V> Response<T>.either(
+inline fun <T, V, E> Response<T, E>.either(
     onSuccess: (T) -> V,
-    onFailure: (Throwable?) -> V
+    onFailure: (E) -> V
 ): V =
     when (this) {
         is Success -> {
@@ -41,7 +41,7 @@ inline fun <T, V> Response<T>.either(
 /**
  * Returns the result if Success, null elsewhere.
  */
-fun <T> Response<T>.valueOrNull(): T? =
+fun <T, E> Response<T, E>.valueOrNull(): T? =
     when (this) {
         is Success -> {
             this.result

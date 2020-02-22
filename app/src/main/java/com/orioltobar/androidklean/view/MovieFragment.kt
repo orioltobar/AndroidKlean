@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
+import com.orioltobar.domain.models.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
-import com.orioltobar.features.MovieViewModel
+import com.orioltobar.features.UiStatus
+import com.orioltobar.features.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.movie_fragment.*
 
 class MovieFragment : BaseFragment() {
@@ -21,7 +23,7 @@ class MovieFragment : BaseFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = inflater.inflate(R.layout.movie_fragment, container,  false)
+    ): View? = inflater.inflate(R.layout.movie_fragment, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,10 +31,21 @@ class MovieFragment : BaseFragment() {
         val viewModel = ViewModelProvider(this, vmFactory).get(MovieViewModel::class.java)
         viewModel.execute(args.id)
 
-        viewModel.movieUiModel.observe(this, Observer<MovieModel>(::displayTestData))
+        viewModel.movieDataStream.observe(
+            this,
+            Observer<UiStatus<MovieModel, ErrorModel>> { handleUiStates(it, ::processNewValue) })
     }
 
-    private fun displayTestData(movie: MovieModel) {
-        textView.text = movie.originalTitle
+    private fun processNewValue(model: MovieModel) {
+        textView.text = model.originalTitle
+        textView2.text = model.overview
+    }
+
+    override fun onError(error: ErrorModel) {
+        println("TRACK STATUS: ERROR!")
+    }
+
+    override fun onLoading() {
+        println("TRACK STATUS: LOADING...")
     }
 }

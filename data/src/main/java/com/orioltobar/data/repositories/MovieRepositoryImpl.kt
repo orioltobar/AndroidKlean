@@ -3,6 +3,7 @@ package com.orioltobar.data.repositories
 import com.orioltobar.commons.*
 import com.orioltobar.data.datasources.DbDataSource
 import com.orioltobar.data.datasources.NetworkDataSource
+import com.orioltobar.domain.models.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.domain.repositories.MovieRepository
 import kotlinx.coroutines.delay
@@ -17,11 +18,11 @@ class MovieRepositoryImpl @Inject constructor(
 ) :
     MovieRepository {
 
-    override suspend fun getMovie(id: Long): Response<MovieModel> {
+    override suspend fun getMovie(id: Long): Response<MovieModel, ErrorModel> {
         return singleSourceOfTruth(id)
     }
 
-    override fun getMovieFlow(): Flow<Response<MovieModel>> = flow {
+    override fun getMovieFlow(): Flow<Response<MovieModel, ErrorModel>> = flow {
         for (x in 0 until 10) {
             val id = Random.nextLong(1L, 999L)
             emit(dataSource.getMovie(id))
@@ -33,7 +34,7 @@ class MovieRepositoryImpl @Inject constructor(
      * Single source of truth pattern. Database serves as SSOT in this case. Network calls are used
      * to store the values in the database.
      */
-    private suspend fun singleSourceOfTruth(id: Long): Response<MovieModel> =
+    private suspend fun singleSourceOfTruth(id: Long): Response<MovieModel, ErrorModel> =
         dbDataSource.getMovie(id).valueOrNull()?.let { dbResult -> Success(dbResult) }
             ?: run {
                 dataSource.getMovie(id).either(
