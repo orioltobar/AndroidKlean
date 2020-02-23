@@ -1,0 +1,42 @@
+import buildSrc.Variables
+
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation project(':commons')
+    implementation project(':domain')
+
+    // Dagger
+    implementation "com.google.dagger:dagger:${Variables.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
+
+    // Kotlin
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
+
+    // LiveData
+    implementation "androidx.lifecycle:lifecycle-extensions:${Variables.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:${Variables.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-common-java8:${Variables.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:${Variables.androidx_lifecycle}"
+
+    // Testing
+    androidTestImplementation "androidx.test.ext:junit:${Variables.junit_test_version}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Variables.espresso_version}"
+    testImplementation "junit:junit:${Variables.junit_version}"
+    testImplementation "io.mockk:mockk:${Variables.mockk_version}"
+}
