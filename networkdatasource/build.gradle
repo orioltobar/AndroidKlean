@@ -22,4 +22,9 @@ dependencies {
     // OkHttp
     api "com.squareup.okhttp3:okhttp:${Variables.okHttp_version}"
     api "com.squareup.okhttp3:logging-interceptor:${Variables.okHttp_version}"
+
+    // Testing
+    testImplementation "junit:junit:${Variables.junit_version}"
+    testImplementation "io.mockk:mockk:${Variables.mockk_version}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Variables.coroutines_version}"
 }

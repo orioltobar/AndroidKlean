@@ -18,5 +18,6 @@ dependencies {
     // Testing
     testApi "junit:junit:${Variables.junit_version}"
     testApi "io.mockk:mockk:${Variables.mockk_version}"
+    testApi "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Variables.coroutines_version}"
 }
 
