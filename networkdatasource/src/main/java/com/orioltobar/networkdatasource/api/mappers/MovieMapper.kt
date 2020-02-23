@@ -1,5 +1,6 @@
 package com.orioltobar.networkdatasource.api.mappers
 
+import com.orioltobar.commons.Constants
 import com.orioltobar.commons.Mapper
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.networkdatasource.api.models.MovieApiModel
@@ -18,7 +19,8 @@ class MovieMapper @Inject constructor() : Mapper<MovieApiModel, MovieModel> {
         from?.adult ?: false,
         from?.backImageUrl ?: "",
         from?.originalLanguage ?: "",
-        from?.genreIds ?: emptyList(),
+        from?.genreIds?.filterNotNull() ?: emptyList(),
+        from?.genreIds?.getOrNull(0) ?: Constants.DEFAULT_GENRE_ID,
         from?.voteAverage ?: 0.0F,
         from?.overview ?: "",
         from?.releaseDate ?: ""

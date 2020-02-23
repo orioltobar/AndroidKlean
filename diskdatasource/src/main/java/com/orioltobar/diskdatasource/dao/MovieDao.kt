@@ -9,6 +9,9 @@ interface MovieDao {
     @Query("SELECT * FROM movies")
     suspend fun getMovies(): List<MovieDbModel>
 
+    @Query("SELECT * FROM movies WHERE mainGenreId == :genreId")
+    suspend fun getMoviesByGenre(genreId: Int): List<MovieDbModel>
+
     @Query("SELECT * FROM movies WHERE id == :id")
     suspend fun getMovie(id: Long): MovieDbModel
 

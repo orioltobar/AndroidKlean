@@ -13,35 +13,35 @@ data class MovieApiModel(
     val title: String? = null,
 
     @SerializedName("popularity")
-    val popularity: Float,
+    val popularity: Float? = null,
 
     @SerializedName("vote_count")
-    val voteCount: Long,
+    val voteCount: Long? = null,
 
     @SerializedName("video")
-    val video: Boolean,
+    val video: Boolean? = null,
 
     @SerializedName("poster_path")
-    val frontImageUrl: String,
+    val frontImageUrl: String? = null,
 
     @SerializedName("adult")
-    val adult: Boolean,
+    val adult: Boolean? = null,
 
     @SerializedName("backdrop_path")
-    val backImageUrl: String,
+    val backImageUrl: String? = null,
 
     @SerializedName("original_language")
-    val originalLanguage: String,
+    val originalLanguage: String? = null,
 
     @SerializedName("genre_ids")
-    val genreIds: List<Int>,
+    val genreIds: List<Int?>? = null,
 
     @SerializedName("vote_average")
-    val voteAverage: Float,
+    val voteAverage: Float? = null,
 
     @SerializedName("overview")
-    val overview: String,
+    val overview: String? = null,
 
     @SerializedName("release_date")
-    val releaseDate: String
+    val releaseDate: String? = null
 )

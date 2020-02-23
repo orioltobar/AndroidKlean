@@ -42,6 +42,7 @@ class GenreListFragment : BaseFragment() {
             this,
             Observer<UiStatus<List<MovieGenreDetailModel>, ErrorModel>> {
                 handleUiStates(it, genreListAdapter::updateItems)
+                progressBar.visibility = View.GONE
             })
     }
 
@@ -50,6 +51,7 @@ class GenreListFragment : BaseFragment() {
     }
 
     override fun onLoading() {
+        progressBar.visibility = View.VISIBLE
         println("LOADING GENRES")
     }
 }

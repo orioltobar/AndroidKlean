@@ -1,9 +1,6 @@
 package com.orioltobar.data.repositories
 
-import com.orioltobar.commons.Failure
-import com.orioltobar.commons.Response
-import com.orioltobar.commons.Success
-import com.orioltobar.commons.singleSourceOfTruth
+import com.orioltobar.commons.*
 import com.orioltobar.data.datasources.DbDataSource
 import com.orioltobar.data.datasources.NetworkDataSource
 import com.orioltobar.domain.models.ErrorModel
@@ -80,6 +77,22 @@ class MovieRepositoryImpl @Inject constructor(
         )
     }
 
+    override suspend fun getMovieListByGender(genderId: Int): Response<List<MovieModel>, ErrorModel> {
+        initOrReturnGenresArray()
+        // TODO: Fix get movie SingleSourceOfTruth.
+        return dataSource.getMoviePageByGender(genderId)
+//        return singleSourceOfTruth(
+//            dbDataSource = { dbDataSource.getMoviePageByGender(genderId) },
+//            networkDataSource = { dataSource.getMoviePageByGender(genderId) },
+//            dbCallback = { apiResult ->
+//                apiResult.map {
+//                    dbDataSource.saveMovie(it)
+//                }
+//                dbDataSource.getMoviePageByGender(genderId)
+//            }
+//        )
+    }
+
     override suspend fun getMovieGenres(): Response<List<MovieGenreDetailModel>, ErrorModel> {
         val genres = getGenres()
         return if (genres.isNotEmpty()) {
@@ -89,6 +102,9 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * Executes the gender call ASAP in order to store it in the database if they weren't.
+     */
     private suspend fun getGenres(): List<MovieGenreDetailModel> {
         val genresModel = singleSourceOfTruth(
             dbDataSource = { dbDataSource.getGenres() },
@@ -106,15 +122,14 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    /**
+     * Retrieves the main genre of the [movie] using a [genres] list.
+     */
     private fun getSelectedGenresFromList(
         movie: MovieModel,
         genres: List<MovieGenreDetailModel>
     ): MovieGenresModel {
-        val filteredList = movie.genreIds
-            .takeIf { it.isNotEmpty() }
-            ?.flatMap { id ->
-                genres.filter { it.id == id }
-            } ?: genres
+        val filteredList = genres.filter { it.id == movie.mainGenreId }
         return MovieGenresModel(filteredList)
     }
 }

@@ -14,5 +14,7 @@ interface MovieRepository {
 
     suspend fun getMovieList(pageId: Int): Response<List<MovieModel>, ErrorModel>
 
+    suspend fun getMovieListByGender(genderId: Int): Response<List<MovieModel>, ErrorModel>
+
     suspend fun getMovieGenres(): Response<List<MovieGenreDetailModel>, ErrorModel>
 }

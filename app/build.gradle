@@ -56,6 +56,9 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime:${Variables.androidx_lifecycle}"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:${Variables.androidx_lifecycle}"
 
+    // Lottie
+    implementation "com.airbnb.android:lottie:${Variables.lottie_version}"
+
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${Variables.navigation_version}"
     implementation "androidx.navigation:navigation-ui-ktx:${Variables.navigation_version}"

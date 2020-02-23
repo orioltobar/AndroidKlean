@@ -14,7 +14,9 @@ import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.features.UiStatus
 import com.orioltobar.features.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.movie_fragment.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class MovieFragment : BaseFragment() {
 
     private val args: MovieFragmentArgs by navArgs()
@@ -39,6 +41,7 @@ class MovieFragment : BaseFragment() {
     private fun processNewValue(model: MovieModel) {
         textView.text = model.originalTitle
         textView2.text = model.overview
+        progressBar.visibility = View.GONE
     }
 
     override fun onError(error: ErrorModel) {
@@ -46,6 +49,7 @@ class MovieFragment : BaseFragment() {
     }
 
     override fun onLoading() {
+        progressBar.visibility = View.VISIBLE
         println("TRACK STATUS: LOADING...")
     }
 }

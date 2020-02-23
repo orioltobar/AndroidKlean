@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
 import com.orioltobar.domain.models.ErrorModel
@@ -20,6 +21,8 @@ class MovieListFragment : BaseFragment() {
 
     @Inject
     lateinit var movieListAdapter: MovieListAdapter
+
+    private val navArgs: MovieListFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,9 +40,9 @@ class MovieListFragment : BaseFragment() {
         }
         movieListRecyclerView.adapter = movieListAdapter
 
-        val vm = ViewModelProvider(this, vmFactory).get(MovieListViewModel::class.java)
-
-        vm.movieListDataStream.observe(
+        val viewModel = ViewModelProvider(this, vmFactory).get(MovieListViewModel::class.java)
+        viewModel.getMovieListFromGenre(navArgs.id)
+        viewModel.movieListDataStream.observe(
             this,
             Observer<UiStatus<List<MovieModel>, ErrorModel>> {
                 handleUiStates(
@@ -51,6 +54,7 @@ class MovieListFragment : BaseFragment() {
 
     private fun processNewValue(values: List<MovieModel>) {
         movieListAdapter.updateItems(values)
+        progressBar.visibility = View.GONE
     }
 
     override fun onError(error: ErrorModel) {
@@ -58,6 +62,7 @@ class MovieListFragment : BaseFragment() {
     }
 
     override fun onLoading() {
+        progressBar.visibility = View.VISIBLE
         println("TRACK STATUS: LOADING...")
     }
 }
