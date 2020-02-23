@@ -31,7 +31,7 @@ class MovieViewModel @Inject constructor(
     val movieModelFlow: LiveData<Response<MovieModel, ErrorModel>>
         get() = _movieUiModelFlow
 
-    fun execute(id: Long = 550L) {
+    fun execute(id: Long) {
         viewModelScope.launch {
             _movieDataStream.value = emitLoadingState()
             val request = getMovieUseCase.execute(id)

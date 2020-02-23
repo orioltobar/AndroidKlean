@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/movieListFragment"
-        android:name="com.orioltobar.androidklean.view.MovieListFragment"
+        android:name="com.orioltobar.androidklean.view.movielist.MovieListFragment"
         android:label="MovieListFragment">
 
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/movieFragment"
-        android:name="com.orioltobar.androidklean.view.MovieFragment"
+        android:name="com.orioltobar.androidklean.view.movie.MovieFragment"
         android:label="MovieFragment">
 
         <argument

@@ -1,4 +1,4 @@
-package com.orioltobar.androidklean.view
+package com.orioltobar.androidklean.view.movie
 
 import android.os.Bundle
 import android.view.LayoutInflater
