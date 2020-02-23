@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">AndroidKlean</string>
+    <string name="app_name">Movie Klean Playground</string>
+    <string name="menu_list_movie">Movies</string>
+    <string name="menu_list_discover">Discover</string>
 </resources>

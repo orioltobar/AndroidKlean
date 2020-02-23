@@ -1,5 +1,6 @@
 package com.orioltobar.data.repositories
 
+import com.orioltobar.commons.Failure
 import com.orioltobar.commons.Response
 import com.orioltobar.commons.Success
 import com.orioltobar.commons.singleSourceOfTruth
@@ -22,15 +23,15 @@ class MovieRepositoryImpl @Inject constructor(
 ) :
     MovieRepository {
 
-    private var genres: MovieGenresModel? = null
+    private var genres: List<MovieGenreDetailModel>? = null
 
     /**
      * Returns or initialize the movie genres list.
      */
     private suspend fun initOrReturnGenresArray(): List<MovieGenreDetailModel> {
-        return genres?.genre ?: run {
-            genres = getMovieGenres()
-            genres?.genre ?: emptyList()
+        return genres ?: run {
+            genres = getGenres()
+            genres ?: emptyList()
         }
     }
 
@@ -62,6 +63,7 @@ class MovieRepositoryImpl @Inject constructor(
             emit(dataSource.getMovie(id))
             delay(60000L)
         }
+
     }
 
     override suspend fun getMovieList(pageId: Int): Response<List<MovieModel>, ErrorModel> {
@@ -78,8 +80,17 @@ class MovieRepositoryImpl @Inject constructor(
         )
     }
 
-    private suspend fun getMovieGenres(): MovieGenresModel {
-        val genres = singleSourceOfTruth(
+    override suspend fun getMovieGenres(): Response<List<MovieGenreDetailModel>, ErrorModel> {
+        val genres = getGenres()
+        return if (genres.isNotEmpty()) {
+            Success(genres)
+        } else {
+            Failure(ErrorModel("Genre list is empty."))
+        }
+    }
+
+    private suspend fun getGenres(): List<MovieGenreDetailModel> {
+        val genresModel = singleSourceOfTruth(
             dbDataSource = { dbDataSource.getGenres() },
             networkDataSource = { dataSource.getGenres() },
             dbCallback = { apiResult ->
@@ -87,10 +98,11 @@ class MovieRepositoryImpl @Inject constructor(
                 dbDataSource.getGenres()
             }
         )
-        return if (genres is Success) {
-            genres.result
+        return if (genresModel is Success) {
+            this.genres ?: run { this.genres = genresModel.result.genre }
+            genresModel.result.genre
         } else {
-            MovieGenresModel(emptyList())
+            emptyList()
         }
     }
 
@@ -101,7 +113,7 @@ class MovieRepositoryImpl @Inject constructor(
         val filteredList = movie.genreIds
             .takeIf { it.isNotEmpty() }
             ?.flatMap { id ->
-                genres.filter { it.id == id}
+                genres.filter { it.id == id }
             } ?: genres
         return MovieGenresModel(filteredList)
     }

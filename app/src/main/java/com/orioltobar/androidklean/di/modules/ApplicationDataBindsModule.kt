@@ -1,6 +1,7 @@
 package com.orioltobar.androidklean.di.modules
 
 import com.orioltobar.androidklean.di.scopes.ActivityScope
+import com.orioltobar.androidklean.view.genrelist.GenreListAdapter
 import com.orioltobar.androidklean.view.movielist.MovieListAdapter
 import com.orioltobar.data.datasources.DbDataSource
 import com.orioltobar.data.datasources.NetworkDataSource
@@ -37,5 +38,9 @@ interface ApplicationDataBindsModule {
         @Provides
         @ActivityScope
         fun provideMovieListAdapter(): MovieListAdapter = MovieListAdapter()
+
+        @Provides
+        @ActivityScope
+        fun provideGenreListAdapter(): GenreListAdapter = GenreListAdapter()
     }
 }

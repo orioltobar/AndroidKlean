@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.orioltobar.androidklean.di.ViewModelFactory
 import com.orioltobar.androidklean.di.ViewModelKey
+import com.orioltobar.features.viewmodel.MovieGenresViewModel
 import com.orioltobar.features.viewmodel.MovieListViewModel
 import com.orioltobar.features.viewmodel.MovieViewModel
 import dagger.Binds
@@ -27,4 +28,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MovieListViewModel::class)
     internal abstract fun movieListViewModel(viewModel: MovieListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieGenresViewModel::class)
+    internal abstract fun movieGenresViewModel(viewModel: MovieGenresViewModel): ViewModel
 }
