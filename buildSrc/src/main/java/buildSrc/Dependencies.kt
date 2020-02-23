@@ -19,6 +19,8 @@ object Variables {
     const val gson_version = "2.8.6"
     const val navigation_version = "2.3.0-alpha02"
     const val lottie_version = "3.4.0"
+    const val glide_version = "4.11.0"
+    const val palette_version = "1.0.0"
 
     // AndroidX
     const val androidx_appcompat_version = "1.0.2"

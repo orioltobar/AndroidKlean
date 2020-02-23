@@ -5,6 +5,7 @@ object Constants {
     const val API_KEY = "API_KEY"
 
     const val DEFAULT_GENRE_ID = 12
+    const val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w300"
 
     // Network constants
     const val RETROFIT_TIMEOUT = 60L

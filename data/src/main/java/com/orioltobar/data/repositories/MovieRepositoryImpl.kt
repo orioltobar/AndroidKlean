@@ -78,9 +78,16 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMovieListByGender(genderId: Int): Response<List<MovieModel>, ErrorModel> {
-        initOrReturnGenresArray()
         // TODO: Fix get movie SingleSourceOfTruth.
-        return dataSource.getMoviePageByGender(genderId)
+        val genresList = initOrReturnGenresArray()
+        val request = dataSource.getMoviePageByGender(genderId)
+        if (request is Success) {
+            request.result.map {movie ->
+               movie.genres = getSelectedGenresFromList(movie, genresList)
+            }
+
+        }
+        return request
 //        return singleSourceOfTruth(
 //            dbDataSource = { dbDataSource.getMoviePageByGender(genderId) },
 //            networkDataSource = { dataSource.getMoviePageByGender(genderId) },
