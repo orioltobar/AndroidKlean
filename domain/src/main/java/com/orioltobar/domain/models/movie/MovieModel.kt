@@ -15,4 +15,6 @@ data class MovieModel(
     val voteAverage: Float,
     val overview: String,
     val releaseDate: String
-)
+) {
+    var genres: MovieGenresModel? = null
+}

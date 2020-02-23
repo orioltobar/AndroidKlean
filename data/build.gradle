@@ -6,6 +6,7 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
     api project(':domain')
+    implementation project(':commons')
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"

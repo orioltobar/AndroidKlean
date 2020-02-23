@@ -7,13 +7,17 @@ import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.orioltobar.diskdatasource.Converters
 import com.orioltobar.diskdatasource.dao.MovieDao
+import com.orioltobar.diskdatasource.dao.MovieGenreDao
 import com.orioltobar.diskdatasource.models.MovieDbModel
+import com.orioltobar.diskdatasource.models.MovieGenreDbModel
 
-@Database(version = 1, entities = [MovieDbModel::class])
+@Database(version = 1, entities = [MovieDbModel::class, MovieGenreDbModel::class])
 @TypeConverters(Converters::class)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun movieDao(): MovieDao
+
+    abstract fun movieGenreDao(): MovieGenreDao
 
     companion object {
 

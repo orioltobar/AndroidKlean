@@ -16,7 +16,7 @@ object Cache {
      *
      * @return Success if the value is not expired, failure otherwise.
      */
-    fun <T> checkTimestampCache(timestamp: Long, model: T?): Response<T, ErrorModel> = model?.let {
+    fun <T> checkTimestampCache(timestamp: Long, model: T): Response<T, ErrorModel> = model?.let {
         if (Date().time - timestamp < TimeUnit.MINUTES.toMillis(Constants.CACHE_TIME_MINUTES)) {
             Success(it)
         } else {
