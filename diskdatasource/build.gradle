@@ -8,6 +8,11 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
+    defaultConfig {
+        minSdkVersion 23
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -31,5 +36,7 @@ dependencies {
 
     // Testing
     testImplementation "androidx.room:room-testing:${Variables.room_version}"
-
+    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Variables.coroutines_version}"
+    androidTestImplementation "androidx.test.ext:junit:${Variables.junit_test_version}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Variables.espresso_version}"
 }

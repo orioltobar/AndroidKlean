@@ -16,7 +16,7 @@ data class MovieDbModel(
     val originalTitle: String,
 
     @ColumnInfo(name = "tittle")
-    val tittle: String,
+    val title: String,
 
     @ColumnInfo(name = "popularity")
     val popularity: Float,
