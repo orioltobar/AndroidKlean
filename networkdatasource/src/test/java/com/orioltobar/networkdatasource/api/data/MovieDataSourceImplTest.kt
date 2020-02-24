@@ -5,6 +5,8 @@ import com.orioltobar.commons.Constants
 import com.orioltobar.commons.MockObjects
 import com.orioltobar.networkdatasource.api.mappers.MovieGenresMapper
 import com.orioltobar.networkdatasource.api.mappers.MovieMapper
+import com.orioltobar.networkdatasource.api.models.MovieApiModel
+import com.orioltobar.networkdatasource.api.models.MovieGenresApiModel
 import com.orioltobar.networkdatasource.api.models.MovieListApiModel
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
@@ -29,6 +31,12 @@ class MovieDataSourceImplTest {
     @MockK
     private lateinit var movieGenreMapper: MovieGenresMapper
 
+    @MockK
+    private lateinit var movieMock: MovieApiModel
+
+    @MockK
+    private lateinit var genreMock: MovieGenresApiModel
+
     private val dataSource by lazy {
         MovieDataSourceImpl(
             movieService,
@@ -42,9 +50,12 @@ class MovieDataSourceImplTest {
         val mockMovieListApiModel =
             Gson().fromJson(MockObjects.movieListJson, MovieListApiModel::class.java)
 
+        coEvery { movieService.getMovie(any()) } returns movieMock
+        coEvery { movieService.getGenres() } returns genreMock
         coEvery { movieService.getMovieList(any()) } returns mockMovieListApiModel
         coEvery { movieService.getMovieGenreList(genreId = any()) } returns mockMovieListApiModel
         every { movieMapper.map(any()) } returns mockk()
+        every { movieGenreMapper.map(any()) } returns mockk()
     }
 
     @Test
@@ -80,6 +91,35 @@ class MovieDataSourceImplTest {
             }
             coVerify {
                 movieMapper.map(any())
+            }
+        }
+
+    @Test
+    fun `getMovie() must call API service getMovie() and map the result`() =
+        runBlockingTest {
+            // Given
+            val movieId = 550L
+
+            // When
+            dataSource.getMovie(movieId)
+
+            // Then
+            coVerify(exactly = 1) {
+                movieService.getMovie(movieId)
+                movieMapper.map(any())
+            }
+        }
+
+    @Test
+    fun `getGenres() must call API service getGenres() and map the result`() =
+        runBlockingTest {
+            // When
+            dataSource.getGenres()
+
+            // Then
+            coVerify(exactly = 1) {
+                movieService.getGenres()
+                movieGenreMapper.map(any())
             }
         }
 }

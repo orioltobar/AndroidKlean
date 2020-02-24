@@ -47,7 +47,7 @@ class MovieFragment : BaseFragment() {
     }
 
     private fun processNewValue(model: MovieModel) {
-        movieFragmentTitle.text = model.tittle
+        movieFragmentTitle.text = model.title
 
         movieFragmentReleaseDate.text = model.releaseDate
         movieFragmentOverview.text = model.overview
