@@ -1,9 +1,8 @@
-package com.orioltobar.networkdatasource
+package com.orioltobar.networkdatasource.api.data
 
 import com.google.gson.Gson
+import com.orioltobar.commons.Constants
 import com.orioltobar.commons.MockObjects
-import com.orioltobar.networkdatasource.api.data.MovieDataSourceImpl
-import com.orioltobar.networkdatasource.api.data.MovieService
 import com.orioltobar.networkdatasource.api.mappers.MovieGenresMapper
 import com.orioltobar.networkdatasource.api.mappers.MovieMapper
 import com.orioltobar.networkdatasource.api.models.MovieListApiModel
@@ -40,14 +39,16 @@ class MovieDataSourceImplTest {
 
     @Before
     fun setup() {
-        val mockModel = Gson().fromJson(MockObjects.movieListJson, MovieListApiModel::class.java)
+        val mockMovieListApiModel =
+            Gson().fromJson(MockObjects.movieListJson, MovieListApiModel::class.java)
 
-        coEvery { movieService.getMovieList(any()) } returns mockModel
+        coEvery { movieService.getMovieList(any()) } returns mockMovieListApiModel
+        coEvery { movieService.getMovieGenreList(genreId = any()) } returns mockMovieListApiModel
         every { movieMapper.map(any()) } returns mockk()
     }
 
     @Test
-    fun `getProductsLocationInStore() must call API service getProductsLocationInStore() and map the result`() =
+    fun `getMoviePage() must call API service getMoviePage() and map the result`() =
         runBlockingTest {
             // Given
             val pageId = 1
@@ -58,6 +59,24 @@ class MovieDataSourceImplTest {
             // Then
             coVerify(exactly = 1) {
                 movieService.getMovieList(pageId)
+            }
+            coVerify {
+                movieMapper.map(any())
+            }
+        }
+
+    @Test
+    fun `getMoviePageByGenre() must call API service getMoviePageByGenre() and map the result`() =
+        runBlockingTest {
+            // Given
+            val genreId = Constants.DEFAULT_GENRE_ID
+
+            // When
+            dataSource.getMoviePageByGenre(genreId)
+
+            // Then
+            coVerify(exactly = 1) {
+                movieService.getMovieGenreList(genreId = genreId)
             }
             coVerify {
                 movieMapper.map(any())

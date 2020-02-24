@@ -6,14 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.orioltobar.commons.Constants
 import com.orioltobar.domain.models.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
-import com.orioltobar.domain.usecases.GetMovieListByGenderUseCase
+import com.orioltobar.domain.usecases.GetMovieListByGenreUseCase
 import com.orioltobar.features.UiStatus
 import com.orioltobar.features.base.BaseViewModel
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MovieListViewModel @Inject constructor(
-    private val movieListUseCase: GetMovieListByGenderUseCase
+    private val movieListUseCase: GetMovieListByGenreUseCase
 ) : BaseViewModel<MovieModel>() {
 
     private val _movieListDataStream = MutableLiveData<UiStatus<List<MovieModel>, ErrorModel>>()

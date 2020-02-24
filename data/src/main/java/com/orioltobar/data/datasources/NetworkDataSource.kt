@@ -9,7 +9,7 @@ interface NetworkDataSource {
 
     suspend fun getMoviePage(pageId: Int): Response<List<MovieModel>, ErrorModel>
 
-    suspend fun getMoviePageByGender(genderId: Int): Response<List<MovieModel>, ErrorModel>
+    suspend fun getMoviePageByGenre(genreId: Int): Response<List<MovieModel>, ErrorModel>
 
     suspend fun getMovie(id: Long): Response<MovieModel, ErrorModel>
 

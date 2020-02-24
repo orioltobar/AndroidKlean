@@ -5,9 +5,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GetMovieListByGenderUseCase @Inject constructor(private val repository: MovieRepository) {
+class GetMovieListByGenreUseCase @Inject constructor(private val repository: MovieRepository) {
 
     suspend fun execute(genreId: Int) = withContext(Dispatchers.IO) {
-        repository.getMovieListByGender(genreId)
+        repository.getMovieListByGenre(genreId)
     }
 }
