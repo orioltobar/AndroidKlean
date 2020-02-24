@@ -77,27 +77,17 @@ class MovieRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getMovieListByGender(genderId: Int): Response<List<MovieModel>, ErrorModel> {
-        // TODO: Fix get movie SingleSourceOfTruth.
+    override suspend fun getMovieListByGenre(genreId: Int): Response<List<MovieModel>, ErrorModel> {
         val genresList = initOrReturnGenresArray()
-        val request = dataSource.getMoviePageByGender(genderId)
+        val request = dataSource.getMoviePageByGenre(genreId)
         if (request is Success) {
-            request.result.map {movie ->
-               movie.genres = getSelectedGenresFromList(movie, genresList)
+            request.result.map { movie ->
+                movie.mainGenreId = genreId
+                movie.genres = getSelectedGenresFromList(movie, genresList)
             }
 
         }
         return request
-//        return singleSourceOfTruth(
-//            dbDataSource = { dbDataSource.getMoviePageByGender(genderId) },
-//            networkDataSource = { dataSource.getMoviePageByGender(genderId) },
-//            dbCallback = { apiResult ->
-//                apiResult.map {
-//                    dbDataSource.saveMovie(it)
-//                }
-//                dbDataSource.getMoviePageByGender(genderId)
-//            }
-//        )
     }
 
     override suspend fun getMovieGenres(): Response<List<MovieGenreDetailModel>, ErrorModel> {
@@ -110,7 +100,7 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     /**
-     * Executes the gender call ASAP in order to store it in the database if they weren't.
+     * Executes the genre call ASAP in order to store it in the database if they weren't.
      */
     private suspend fun getGenres(): List<MovieGenreDetailModel> {
         val genresModel = singleSourceOfTruth(

@@ -29,8 +29,8 @@ class MovieDataBaseImpl @Inject constructor(
         } ?: Failure(ErrorModel("Error in MovieDataBase"))
     }
 
-    override suspend fun getMoviePageByGender(genderId: Int): Response<List<MovieModel>, ErrorModel> {
-        return movieDao.getMoviesByGenre(genderId).takeIf { it.isNotEmpty() }?.let {list ->
+    override suspend fun getMoviePageByGenre(genreId: Int): Response<List<MovieModel>, ErrorModel> {
+        return movieDao.getMoviesByGenre(genreId).takeIf { it.isNotEmpty() }?.let {list ->
             processDbResponse(list)
         } ?: Failure(ErrorModel("Error in MovieDataBase"))
     }
