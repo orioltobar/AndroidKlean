@@ -26,3 +26,5 @@ app -> presentation -> domain/commons <- data <- networkdatasource/diskdatasourc
 - Unit testing is in progress.
 - Instrumentation Testing.
 - Lists with Paging component.
+- Implement better error handling (ATM ErrorModel contains a simple string).
+- Implement Timber.
