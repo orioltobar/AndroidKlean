@@ -1,4 +1,4 @@
-import buildSrc.Variables
+import buildSrc.Versions
 
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
@@ -9,22 +9,22 @@ dependencies {
     implementation project(':commons')
 
     // Dagger
-    implementation "com.google.dagger:dagger:${Variables.dagger_version}"
-    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
+    implementation "com.google.dagger:dagger:${Versions.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Versions.dagger_version}"
 
     // Retrofit
-    api("com.squareup.retrofit2:retrofit:${Variables.retrofit_version}") {
+    api("com.squareup.retrofit2:retrofit:${Versions.retrofit_version}") {
         // Exclude Retrofit’s OkHttp peer-dependency module in order to define our own module import
         exclude module: 'okhttp'
     }
-    api "com.squareup.retrofit2:converter-gson:${Variables.retrofit_version}"
+    api "com.squareup.retrofit2:converter-gson:${Versions.retrofit_version}"
 
     // OkHttp
-    api "com.squareup.okhttp3:okhttp:${Variables.okHttp_version}"
-    api "com.squareup.okhttp3:logging-interceptor:${Variables.okHttp_version}"
+    api "com.squareup.okhttp3:okhttp:${Versions.okHttp_version}"
+    api "com.squareup.okhttp3:logging-interceptor:${Versions.okHttp_version}"
 
     // Testing
-    testImplementation "junit:junit:${Variables.junit_version}"
-    testImplementation "io.mockk:mockk:${Variables.mockk_version}"
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Variables.coroutines_version}"
+    testImplementation "junit:junit:${Versions.junit_version}"
+    testImplementation "io.mockk:mockk:${Versions.mockk_version}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_version}"
 }
