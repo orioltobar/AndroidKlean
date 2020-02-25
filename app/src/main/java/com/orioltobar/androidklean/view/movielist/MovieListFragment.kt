@@ -10,7 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.features.UiStatus
 import com.orioltobar.features.viewmodel.MovieListViewModel

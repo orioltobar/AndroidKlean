@@ -1,9 +1,12 @@
 package com.orioltobar.data.repositories
 
-import com.orioltobar.commons.*
+import com.orioltobar.commons.Failure
+import com.orioltobar.commons.Response
+import com.orioltobar.commons.Success
+import com.orioltobar.commons.error.ErrorModel
+import com.orioltobar.commons.singleSourceOfTruth
 import com.orioltobar.data.datasources.DbDataSource
 import com.orioltobar.data.datasources.NetworkDataSource
-import com.orioltobar.domain.models.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
 import com.orioltobar.domain.models.movie.MovieGenresModel
 import com.orioltobar.domain.models.movie.MovieModel

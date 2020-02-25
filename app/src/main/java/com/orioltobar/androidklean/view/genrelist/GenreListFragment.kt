@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
 import com.orioltobar.features.UiStatus
 import com.orioltobar.features.viewmodel.MovieGenresViewModel

@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "movies")
 data class MovieDbModel(
     @PrimaryKey
-    val mainGenreId: Int,
-
-    @ColumnInfo(name = "id")
     val id: Long,
+
+    @ColumnInfo(name = "main_genre_id")
+    val mainGenreId: Int,
 
     @ColumnInfo(name = "original_title")
     val originalTitle: String,

@@ -3,7 +3,7 @@ package com.orioltobar.networkdatasource.api.data
 import com.orioltobar.commons.Response
 import com.orioltobar.commons.mapResponse
 import com.orioltobar.data.datasources.NetworkDataSource
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenresModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.networkdatasource.api.mappers.MovieGenresMapper

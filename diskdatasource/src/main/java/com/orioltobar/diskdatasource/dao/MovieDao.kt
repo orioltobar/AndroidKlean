@@ -9,17 +9,14 @@ interface MovieDao {
     @Query("SELECT * FROM movies")
     suspend fun getMovies(): List<MovieDbModel>
 
-    @Query("SELECT * FROM movies WHERE mainGenreId == :genreId")
+    @Query("SELECT * FROM movies WHERE main_genre_id == :genreId")
     suspend fun getMoviesByGenre(genreId: Int): List<MovieDbModel>
 
     @Query("SELECT * FROM movies WHERE id == :id")
-    suspend fun getMovie(id: Long): MovieDbModel
+    suspend fun getMovie(id: Long): MovieDbModel?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWithTimestamp(movie: MovieDbModel)
-
-    @Update
-    suspend fun updateMovie(movie: MovieDbModel)
 
     @Delete
     suspend fun deleteMovie(user: MovieDbModel)

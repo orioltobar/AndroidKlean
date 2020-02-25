@@ -4,7 +4,7 @@ import com.orioltobar.commons.Constants
 import com.orioltobar.commons.Failure
 import com.orioltobar.commons.Response
 import com.orioltobar.commons.Success
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import java.util.*
 import java.util.concurrent.TimeUnit
 

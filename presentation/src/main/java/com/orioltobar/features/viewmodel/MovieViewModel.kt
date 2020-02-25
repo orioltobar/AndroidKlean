@@ -2,7 +2,7 @@ package com.orioltobar.features.viewmodel
 
 import androidx.lifecycle.*
 import com.orioltobar.commons.Response
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.domain.usecases.GetMovieUseCase
 import com.orioltobar.domain.usecases.GetMovieUseCaseFlow

@@ -30,8 +30,8 @@ class MovieDbMapper @Inject constructor() : Mapper<MovieDbModel, MovieModel> {
 
     fun mapToDbModel(from: MovieModel): MovieDbModel =
         MovieDbModel(
-            from.genreIds.getOrNull(0) ?: Constants.DEFAULT_GENRE_ID,
             from.id,
+            from.genreIds.getOrNull(0) ?: Constants.DEFAULT_GENRE_ID,
             from.originalTitle,
             from.title,
             from.popularity,

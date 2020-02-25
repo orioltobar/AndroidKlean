@@ -136,8 +136,8 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/movieFragmentSwipeAnimation"
-        android:layout_width="100dp"
-        android:layout_height="50dp"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
         android:layout_gravity="center"
         android:clickable="true"
         android:focusable="true"

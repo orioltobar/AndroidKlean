@@ -21,6 +21,7 @@ object Versions {
     const val lottie_version = "3.4.0"
     const val glide_version = "4.11.0"
     const val palette_version = "1.0.0"
+    const val robolectric_version = "4.3.1"
 
     // AndroidX
     const val androidx_appcompat_version = "1.0.2"

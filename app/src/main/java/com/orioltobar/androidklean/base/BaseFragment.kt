@@ -1,7 +1,7 @@
 package com.orioltobar.androidklean.base
 
 import com.orioltobar.androidklean.di.ViewModelFactory
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.features.Error
 import com.orioltobar.features.Loading
 import com.orioltobar.features.NewValue

@@ -3,7 +3,7 @@ package com.orioltobar.networkdatasource.utils
 import com.orioltobar.commons.Failure
 import com.orioltobar.commons.Response
 import com.orioltobar.commons.Success
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 
 /**
  * This function is used to wrap a [call] to an API in a safe way. The result is expressed as a

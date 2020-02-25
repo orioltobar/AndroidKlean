@@ -18,7 +18,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
 import com.orioltobar.androidklean.extensions.getDominantColor
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.features.UiStatus
 import com.orioltobar.features.viewmodel.MovieViewModel
@@ -51,8 +51,6 @@ class MovieFragment : BaseFragment() {
     }
 
     private fun processNewValue(model: MovieModel) {
-        movieFragmentSwipeAnimation.visibility = View.VISIBLE
-
         movieFragmentTitle.text = model.title
 
         movieFragmentReleaseDate.text = model.releaseDate
@@ -91,6 +89,7 @@ class MovieFragment : BaseFragment() {
         }
 
         progressBar.visibility = View.GONE
+        movieFragmentSwipeAnimation.visibility = View.VISIBLE
     }
 
     override fun onError(error: ErrorModel) {

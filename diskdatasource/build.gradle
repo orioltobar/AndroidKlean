@@ -8,11 +8,6 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
 
-    defaultConfig {
-        minSdkVersion 23
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -36,7 +31,7 @@ dependencies {
 
     // Testing
     testImplementation "androidx.room:room-testing:${Versions.room_version}"
-    androidTestImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_version}"
-    androidTestImplementation "androidx.test.ext:junit:${Versions.junit_test_version}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.espresso_version}"
+    testImplementation "org.robolectric:robolectric:${Versions.robolectric_version}"
+    testImplementation "io.mockk:mockk:${Versions.mockk_version}"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_version}"
 }
