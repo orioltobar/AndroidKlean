@@ -13,7 +13,7 @@ class MovieDbMapper @Inject constructor() : Mapper<MovieDbModel, MovieModel> {
         MovieModel(
             from?.id ?: -1L,
             from?.originalTitle ?: "",
-            from?.tittle ?: "",
+            from?.title ?: "",
             from?.popularity ?: 0.0F,
             from?.voteCount ?: 0L,
             from?.video ?: false,
@@ -33,7 +33,7 @@ class MovieDbMapper @Inject constructor() : Mapper<MovieDbModel, MovieModel> {
             from.genreIds.getOrNull(0) ?: Constants.DEFAULT_GENRE_ID,
             from.id,
             from.originalTitle,
-            from.tittle,
+            from.title,
             from.popularity,
             from.voteCount,
             from.video,

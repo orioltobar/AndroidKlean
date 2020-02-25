@@ -19,7 +19,7 @@ class MovieListViewHolder(parent: ViewGroup) :
 
     override fun update(model: MovieModel) {
 
-        itemView.movieViewHolderTitle.text = model.tittle
+        itemView.movieViewHolderTitle.text = model.title
         itemView.movieViewHolderVotes.text =
             itemView.resources.getString(R.string.rate, model.voteAverage.toString())
         itemView.movieViewHolderCountry.text = model.originalLanguage

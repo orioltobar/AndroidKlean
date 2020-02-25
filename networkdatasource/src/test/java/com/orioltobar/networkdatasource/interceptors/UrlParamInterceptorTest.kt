@@ -3,6 +3,7 @@ package com.orioltobar.networkdatasource.interceptors
 import com.orioltobar.networkdatasource.providers.NetworkProvider
 import io.mockk.MockKAnnotations
 import io.mockk.every
+import io.mockk.impl.annotations.MockK
 import io.mockk.verifySequence
 import okhttp3.HttpUrl
 import okhttp3.Interceptor
@@ -17,21 +18,20 @@ class UrlParamInterceptorTest {
         MockKAnnotations.init(this, relaxed = true)
     }
 
-
-    @io.mockk.impl.annotations.MockK
+    @MockK
     private lateinit var networkProviderMock: NetworkProvider
 
-    @io.mockk.impl.annotations.MockK
+    @MockK
     private lateinit var chain: Interceptor.Chain
-    @io.mockk.impl.annotations.MockK
+    @MockK
     private lateinit var request: Request
-    @io.mockk.impl.annotations.MockK
+    @MockK
     private lateinit var httpUrl: HttpUrl
-    @io.mockk.impl.annotations.MockK
+    @MockK
     private lateinit var httpUrlBuilder: HttpUrl.Builder
-    @io.mockk.impl.annotations.MockK
+    @MockK
     private lateinit var requestBuilder: Request.Builder
-    @io.mockk.impl.annotations.MockK
+    @MockK
     private lateinit var response: Response
 
     private val baseUrlInterceptor by lazy {

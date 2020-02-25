@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class MovieGenresApiModel(
     @SerializedName("genres")
-    val genre: List<MovieGenreDetailApiModel>
+    val genre: List<MovieGenreDetailApiModel?>? = null
 )
 
 data class MovieGenreDetailApiModel(
