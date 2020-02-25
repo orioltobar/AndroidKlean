@@ -3,7 +3,7 @@ package com.orioltobar.features.viewmodel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
 import com.orioltobar.domain.usecases.GetGenresListUseCase
 import com.orioltobar.features.UiStatus

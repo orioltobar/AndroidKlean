@@ -1,4 +1,4 @@
-import buildSrc.Variables
+import buildSrc.Versions
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
@@ -40,38 +40,38 @@ dependencies {
     implementation project(':presentation')
 
     // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
 
     // Dagger
-    implementation "com.google.dagger:dagger:${Variables.dagger_version}"
-    implementation "com.google.dagger:dagger-android:${Variables.dagger_version}"
-    implementation "com.google.dagger:dagger-android-support:${Variables.dagger_version}"
-    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
-    kapt "com.google.dagger:dagger-android-processor:${Variables.dagger_version}"
+    implementation "com.google.dagger:dagger:${Versions.dagger_version}"
+    implementation "com.google.dagger:dagger-android:${Versions.dagger_version}"
+    implementation "com.google.dagger:dagger-android-support:${Versions.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Versions.dagger_version}"
+    kapt "com.google.dagger:dagger-android-processor:${Versions.dagger_version}"
 
     // Coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Variables.coroutines_version}"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_version}"
 
     // Lifecyle
-    implementation "androidx.lifecycle:lifecycle-runtime:${Variables.androidx_lifecycle}"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${Variables.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-runtime:${Versions.androidx_lifecycle}"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.androidx_lifecycle}"
 
     // Lottie
-    implementation "com.airbnb.android:lottie:${Variables.lottie_version}"
+    implementation "com.airbnb.android:lottie:${Versions.lottie_version}"
 
     // Glide
-    implementation "com.github.bumptech.glide:glide:${Variables.glide_version}"
-    annotationProcessor "com.github.bumptech.glide:compiler:${Variables.glide_version}"
+    implementation "com.github.bumptech.glide:glide:${Versions.glide_version}"
+    annotationProcessor "com.github.bumptech.glide:compiler:${Versions.glide_version}"
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment-ktx:${Variables.navigation_version}"
-    implementation "androidx.navigation:navigation-ui-ktx:${Variables.navigation_version}"
+    implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_version}"
+    implementation "androidx.navigation:navigation-ui-ktx:${Versions.navigation_version}"
 
-    implementation "androidx.appcompat:appcompat:${Variables.androidx_version}"
-    implementation "androidx.core:core-ktx:${Variables.androidx_core_version}"
-    implementation "androidx.constraintlayout:constraintlayout:${Variables.androidx_constraintlayout_version}"
-    implementation "androidx.palette:palette-ktx:${Variables.palette_version}"
+    implementation "androidx.appcompat:appcompat:${Versions.androidx_version}"
+    implementation "androidx.core:core-ktx:${Versions.androidx_core_version}"
+    implementation "androidx.constraintlayout:constraintlayout:${Versions.androidx_constraintlayout_version}"
+    implementation "androidx.palette:palette-ktx:${Versions.palette_version}"
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation "androidx.test.ext:junit:${Variables.junit_test_version}"
-    androidTestImplementation "androidx.test.espresso:espresso-core:${Variables.espresso_version}"
+    androidTestImplementation "androidx.test.ext:junit:${Versions.junit_test_version}"
+    androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.espresso_version}"
 }

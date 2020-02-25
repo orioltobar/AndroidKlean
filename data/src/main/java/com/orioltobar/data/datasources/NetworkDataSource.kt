@@ -1,7 +1,7 @@
 package com.orioltobar.data.datasources
 
 import com.orioltobar.commons.Response
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenresModel
 import com.orioltobar.domain.models.movie.MovieModel
 

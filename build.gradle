@@ -11,9 +11,9 @@ buildscript {
         
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:${Variables.gradle_version}"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Variables.kotlin_version}"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${Variables.navigation_version}"
+        classpath "com.android.tools.build:gradle:${Versions.gradle_version}"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_version}"
+        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation_version}"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts.gradle files
     }

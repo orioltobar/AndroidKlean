@@ -14,15 +14,17 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
+import com.google.android.material.appbar.AppBarLayout
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
 import com.orioltobar.androidklean.extensions.getDominantColor
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.features.UiStatus
 import com.orioltobar.features.viewmodel.MovieViewModel
 import kotlinx.android.synthetic.main.movie_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlin.math.abs
 
 @ExperimentalCoroutinesApi
 class MovieFragment : BaseFragment() {
@@ -37,6 +39,8 @@ class MovieFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        initAppBarListener()
 
         val viewModel = ViewModelProvider(this, vmFactory).get(MovieViewModel::class.java)
         viewModel.execute(args.id)
@@ -85,6 +89,7 @@ class MovieFragment : BaseFragment() {
         }
 
         progressBar.visibility = View.GONE
+        movieFragmentSwipeAnimation.visibility = View.VISIBLE
     }
 
     override fun onError(error: ErrorModel) {
@@ -94,5 +99,15 @@ class MovieFragment : BaseFragment() {
     override fun onLoading() {
         progressBar.visibility = View.VISIBLE
         println("TRACK STATUS: LOADING...")
+    }
+
+    private fun initAppBarListener() {
+        movieFragmentAppbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            if (abs(verticalOffset) > 0) {
+                movieFragmentSwipeAnimation.visibility = View.GONE
+            } else  {
+                movieFragmentSwipeAnimation.visibility = View.VISIBLE
+            }
+        })
     }
 }

@@ -1,7 +1,6 @@
 package com.orioltobar.diskdatasource.dao
 
 import androidx.room.Room
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import com.orioltobar.diskdatasource.Helper.testBlocking
 import com.orioltobar.diskdatasource.database.AppDataBase
@@ -11,9 +10,10 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
 
-@RunWith(AndroidJUnit4::class)
-open class MovieGenreDaoTest {
+@RunWith(RobolectricTestRunner::class)
+class MovieGenreDaoTest {
 
     private lateinit var appDataBase: AppDataBase
 

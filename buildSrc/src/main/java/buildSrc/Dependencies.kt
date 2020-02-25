@@ -1,11 +1,11 @@
 package buildSrc
 
-object Variables {
+object Versions {
 
     const val androidx_version = "1.1.0"
     const val androidx_core_version = "1.2.0"
     const val androidx_lifecycle = "2.2.0"
-    const val gradle_version = "3.5.3"
+    const val gradle_version = "3.6.0"
     const val kotlin_version = "1.3.61"
     const val retrofit_version = "2.7.0"
     const val okHttp_version = "3.11.0"
@@ -21,6 +21,7 @@ object Variables {
     const val lottie_version = "3.4.0"
     const val glide_version = "4.11.0"
     const val palette_version = "1.0.0"
+    const val robolectric_version = "4.3.1"
 
     // AndroidX
     const val androidx_appcompat_version = "1.0.2"

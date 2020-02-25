@@ -32,6 +32,8 @@ abstract class AppDataBase : RoomDatabase() {
         }
 
         private fun buildDatabase(context: Context): AppDataBase =
-            Room.databaseBuilder(context, AppDataBase::class.java, "androidklean-db").build()
+            Room.databaseBuilder(context, AppDataBase::class.java, "androidklean-db")
+                .fallbackToDestructiveMigration()
+                .build()
     }
 }

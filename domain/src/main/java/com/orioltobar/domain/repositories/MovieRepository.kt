@@ -1,7 +1,7 @@
 package com.orioltobar.domain.repositories
 
 import com.orioltobar.commons.Response
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
 import com.orioltobar.domain.models.movie.MovieModel
 import kotlinx.coroutines.flow.Flow

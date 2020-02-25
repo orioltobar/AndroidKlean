@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
-import com.orioltobar.domain.models.ErrorModel
+import com.orioltobar.commons.error.ErrorModel
 
 class DiscoverFragment: BaseFragment() {
 

@@ -1,4 +1,4 @@
-package com.orioltobar.domain.models
+package com.orioltobar.commons.error
 
 data class ErrorModel(
     val message: String

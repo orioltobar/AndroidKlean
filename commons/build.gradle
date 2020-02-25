@@ -1,4 +1,4 @@
-import buildSrc.Variables
+import buildSrc.Versions
 
 apply plugin: 'java-library'
 apply plugin: 'kotlin'
@@ -6,18 +6,18 @@ apply plugin: 'kotlin-kapt'
 
 dependencies {
     // Kotlin
-    api "org.jetbrains.kotlin:kotlin-stdlib:${Variables.kotlin_version}"
+    api "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
 
     // Dagger
-    implementation "com.google.dagger:dagger:${Variables.dagger_version}"
-    kapt "com.google.dagger:dagger-compiler:${Variables.dagger_version}"
+    implementation "com.google.dagger:dagger:${Versions.dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${Versions.dagger_version}"
 
     // Coroutines
-    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Variables.coroutines_version}"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:${Versions.coroutines_version}"
 
     // Testing
-    testApi "junit:junit:${Variables.junit_version}"
-    testApi "io.mockk:mockk:${Variables.mockk_version}"
-    testApi "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Variables.coroutines_version}"
+    testApi "junit:junit:${Versions.junit_version}"
+    testApi "io.mockk:mockk:${Versions.mockk_version}"
+    testApi "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines_version}"
 }
 

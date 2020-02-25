@@ -18,13 +18,11 @@ app -> presentation -> domain/commons <- data <- networkdatasource/diskdatasourc
 - Architecture Components: Room, Navigation, Lifecyle.
 - Multi module app.
 - Gradle with Kotlin DSL (IN PROGRESS)
-- Unit Testing with MockK. (IN PROGRESS)
+- Unit Testing with JUnit4, MockK, Robolectric.
 - Instrumentation Testing. (NOT IMPLEMENTED YET)
 
 ## TO-DO LIST
 - Unify gradle files with Kotlin DSL.
-- Unit testing is in progress.
-- Instrumentation Testing.
 - Lists with Paging component.
 - Implement better error handling (ATM ErrorModel contains a simple string).
 - Implement Timber.
