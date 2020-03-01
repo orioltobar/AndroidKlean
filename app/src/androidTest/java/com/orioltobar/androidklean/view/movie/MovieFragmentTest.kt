@@ -4,7 +4,6 @@ import android.os.Bundle
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.TestHelper.checkIsEmulator
@@ -24,23 +23,25 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 
 @ExperimentalCoroutinesApi
-@RunWith(AndroidJUnit4::class)
 class MovieFragmentTest : UiAssertions {
 
     init {
         MockKAnnotations.init(this, relaxed = true)
     }
 
-    @get:Rule
-    val rule = InstantTaskExecutorRule()
-
     private lateinit var movieFragment: MovieFragment
 
     @MockK
     private lateinit var movieViewModelMock: MovieViewModel
+
+    private val _movieDataStream = MutableLiveData<UiStatus<MovieModel, ErrorModel>>()
+    private val movieDataStream: LiveData<UiStatus<MovieModel, ErrorModel>>
+        get() = _movieDataStream
+
+    @get:Rule
+    val rule = InstantTaskExecutorRule()
 
     @get:Rule
     val activityRule =
@@ -58,10 +59,6 @@ class MovieFragmentTest : UiAssertions {
             }
         }
 
-    private val _movieDataStream = MutableLiveData<UiStatus<MovieModel, ErrorModel>>()
-    private val movieDataStream: LiveData<UiStatus<MovieModel, ErrorModel>>
-        get() = _movieDataStream
-
     @Before
     fun setup() {
         every { movieViewModelMock.movieDataStream } returns movieDataStream
@@ -77,7 +74,7 @@ class MovieFragmentTest : UiAssertions {
                 _movieDataStream.value = getMockResponse()
             }
 
-            // TODO: Awful but this sleep ensures that Glide loads the image.
+            // TODO: Sleep to ensure that Glide loads the image.
             Thread.sleep(500)
 
             checkTextIsDisplayed("Title Test")
