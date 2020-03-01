@@ -32,4 +32,5 @@ object Versions {
     const val androidx_multidex_version = "2.0.1"
     const val androidx_recyclerview_version = "1.0.0"
     const val androidx_transition_version = "1.0.0"
+    const val androidx_core_testing = "2.1.0"
 }

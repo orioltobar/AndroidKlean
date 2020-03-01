@@ -7,6 +7,8 @@ import android.widget.FrameLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.orioltobar.androidklean.R
+import android.view.ViewGroup.LayoutParams.MATCH_PARENT
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 
 /**
  * Activity provided to run instrumented unit tests for custom view.
@@ -20,7 +22,7 @@ class MockActivity : FragmentActivity() {
 
     fun setView(
         view: View, layoutParams: ViewGroup.LayoutParams = ViewGroup.LayoutParams(
-            ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT
+            MATCH_PARENT, WRAP_CONTENT
         )
     ) {
         findViewById<FrameLayout>(android.R.id.content)
