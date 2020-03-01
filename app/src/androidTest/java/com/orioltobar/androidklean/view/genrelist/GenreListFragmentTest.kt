@@ -68,7 +68,6 @@ class GenreListFragmentTest : UiAssertions {
             genreListFragment = GenreListFragment().also { fragment ->
                 fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
                     if (viewLifecycleOwner != null) {
-                        // The fragment's view has just been created
                         Navigation.setViewNavController(fragment.requireView(), navHostController)
                     }
                 }

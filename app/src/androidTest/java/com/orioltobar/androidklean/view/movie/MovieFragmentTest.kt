@@ -74,7 +74,6 @@ class MovieFragmentTest : UiAssertions {
                 _movieDataStream.value = getMockResponse()
             }
 
-            // TODO: Sleep to ensure that Glide loads the image.
             Thread.sleep(500)
 
             checkTextIsDisplayed("Title Test")

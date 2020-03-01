@@ -66,7 +66,6 @@ class MovieListViewHolderTest : UiAssertions {
             holder.update(movieModel)
         }
 
-        // TODO: Sleep to ensure that Glide loads the image.
         Thread.sleep(500)
 
         checkTextIsDisplayed(movieModel.title)

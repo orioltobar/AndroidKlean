@@ -25,7 +25,6 @@ import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import kotlinx.android.synthetic.main.movie_list_fragment.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
