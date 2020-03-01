@@ -9,9 +9,9 @@ suspend fun <V, E> singleSourceOfTruth(
     networkDataSource: suspend (Unit) -> Response<V, E>,
     dbCallback: suspend (V) -> Response<V, E>
 ): Response<V, E> =
-    dbDataSource.invoke(Unit).either(onSuccess = { Success(it) },
+    dbDataSource(Unit).either(onSuccess = { Success(it) },
         onFailure = {
-            networkDataSource.invoke(Unit).either(
+            networkDataSource(Unit).either(
                 onSuccess = { apiResult ->
                     dbCallback.invoke(apiResult)
                 },
