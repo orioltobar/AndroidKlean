@@ -10,7 +10,6 @@ import com.orioltobar.commons.error.ErrorModel
 
 class DiscoverFragment: BaseFragment() {
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

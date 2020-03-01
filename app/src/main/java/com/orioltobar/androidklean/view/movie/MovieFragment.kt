@@ -5,8 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.GenericTransitionOptions
 import com.bumptech.glide.Glide
@@ -31,6 +31,8 @@ class MovieFragment : BaseFragment() {
 
     private val args: MovieFragmentArgs by navArgs()
 
+    private val viewModel: MovieViewModel by viewModels { vmFactory }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,9 +44,7 @@ class MovieFragment : BaseFragment() {
 
         initAppBarListener()
 
-        val viewModel = ViewModelProvider(this, vmFactory).get(MovieViewModel::class.java)
         viewModel.execute(args.id)
-
         viewModel.movieDataStream.observe(
             viewLifecycleOwner,
             Observer<UiStatus<MovieModel, ErrorModel>> { handleUiStates(it, ::processNewValue) })
@@ -105,7 +105,7 @@ class MovieFragment : BaseFragment() {
         movieFragmentAppbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             if (abs(verticalOffset) > 0) {
                 movieFragmentSwipeAnimation.visibility = View.GONE
-            } else  {
+            } else {
                 movieFragmentSwipeAnimation.visibility = View.VISIBLE
             }
         })
