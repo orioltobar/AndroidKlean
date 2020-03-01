@@ -15,7 +15,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.orioltobar.androidklean.di.TestRunner"
     }
     buildTypes {
         release {
@@ -61,7 +61,7 @@ dependencies {
 
     // Glide
     implementation "com.github.bumptech.glide:glide:${Versions.glide_version}"
-    annotationProcessor "com.github.bumptech.glide:compiler:${Versions.glide_version}"
+    kapt "com.github.bumptech.glide:compiler:${Versions.glide_version}"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:${Versions.navigation_version}"
@@ -71,7 +71,14 @@ dependencies {
     implementation "androidx.core:core-ktx:${Versions.androidx_core_version}"
     implementation "androidx.constraintlayout:constraintlayout:${Versions.androidx_constraintlayout_version}"
     implementation "androidx.palette:palette-ktx:${Versions.palette_version}"
-    testImplementation 'junit:junit:4.12'
+    testImplementation "junit:junit:${Versions.junit_version}"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:${Versions.dagger_version}"
+    androidTestImplementation "io.mockk:mockk-android:${Versions.mockk_version}"
     androidTestImplementation "androidx.test.ext:junit:${Versions.junit_test_version}"
+    androidTestImplementation "androidx.arch.core:core-testing:${Versions.androidx_core_testing}"
+    androidTestImplementation "androidx.test.espresso:espresso-contrib:${Versions.espresso_version}"
     androidTestImplementation "androidx.test.espresso:espresso-core:${Versions.espresso_version}"
+    androidTestImplementation "androidx.navigation:navigation-testing:${Versions.navigation_version}"
+    androidTestImplementation "androidx.test:rules:${Versions.androidx_core_version}"
+    debugImplementation "androidx.fragment:fragment-testing:${Versions.fragment_test_version}"
 }

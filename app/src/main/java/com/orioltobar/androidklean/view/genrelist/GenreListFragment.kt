@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
@@ -21,6 +21,14 @@ class GenreListFragment : BaseFragment() {
     @Inject
     lateinit var genreListAdapter: GenreListAdapter
 
+    private val viewModel: MovieGenresViewModel by viewModels { vmFactory }
+
+    private var onGenreClicked: (MovieGenreDetailModel) -> Unit = { genre ->
+        val direction =
+            GenreListFragmentDirections.actionGenreListFragmentToMenuMovieListButton(genre.id)
+        findNavController().navigate(direction)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -30,19 +38,14 @@ class GenreListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        genreListAdapter.setOnClickListener { genre ->
-            val direction =
-                GenreListFragmentDirections.actionGenreListFragmentToMenuMovieListButton(genre.id)
-            findNavController().navigate(direction)
-        }
+        genreListAdapter.setOnClickListener(onGenreClicked)
         genreListRecyclerView.adapter = genreListAdapter
 
-        val viewModel = ViewModelProvider(this, vmFactory).get(MovieGenresViewModel::class.java)
         viewModel.genreLiveData.observe(
             viewLifecycleOwner,
             Observer<UiStatus<List<MovieGenreDetailModel>, ErrorModel>> {
                 handleUiStates(it, genreListAdapter::updateItems)
-                progressBar.visibility = View.GONE
+                genreListProgressBar.visibility = View.GONE
             })
     }
 
@@ -51,7 +54,7 @@ class GenreListFragment : BaseFragment() {
     }
 
     override fun onLoading() {
-        progressBar.visibility = View.VISIBLE
+        genreListProgressBar.visibility = View.VISIBLE
         println("LOADING GENRES")
     }
 }

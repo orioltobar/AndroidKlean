@@ -4,8 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.orioltobar.androidklean.R
@@ -24,6 +24,14 @@ class MovieListFragment : BaseFragment() {
 
     private val navArgs: MovieListFragmentArgs by navArgs()
 
+    private val viewModel: MovieListViewModel by viewModels { vmFactory }
+
+    private val onMovieClick: (MovieModel) -> Unit = { movie ->
+        val direction =
+            MovieListFragmentDirections.actionMovieListFragmentToMovieFragment(movie.id)
+        findNavController().navigate(direction)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -33,14 +41,9 @@ class MovieListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        movieListAdapter.setOnClickListener { movie ->
-            val direction =
-                MovieListFragmentDirections.actionMovieListFragmentToMovieFragment(movie.id)
-            findNavController().navigate(direction)
-        }
+        movieListAdapter.setOnClickListener(onMovieClick)
         movieListRecyclerView.adapter = movieListAdapter
 
-        val viewModel = ViewModelProvider(this, vmFactory).get(MovieListViewModel::class.java)
         viewModel.getMovieListFromGenre(navArgs.id)
         viewModel.movieListDataStream.observe(
             viewLifecycleOwner,
@@ -54,7 +57,7 @@ class MovieListFragment : BaseFragment() {
 
     private fun processNewValue(values: List<MovieModel>) {
         movieListAdapter.updateItems(values)
-        progressBar.visibility = View.GONE
+        movieListProgressBar.visibility = View.GONE
     }
 
     override fun onError(error: ErrorModel) {
@@ -62,7 +65,7 @@ class MovieListFragment : BaseFragment() {
     }
 
     override fun onLoading() {
-        progressBar.visibility = View.VISIBLE
+        movieListProgressBar.visibility = View.VISIBLE
         println("TRACK STATUS: LOADING...")
     }
 }
