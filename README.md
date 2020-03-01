@@ -19,7 +19,7 @@ app -> presentation -> domain/commons <- data <- networkdatasource/diskdatasourc
 - Multi module app.
 - Gradle with Kotlin DSL (IN PROGRESS)
 - Unit Testing with JUnit4, MockK, Robolectric.
-- Instrumentation Testing. (NOT IMPLEMENTED YET)
+- Instrumentation Testing with Dagger.
 
 ## TO-DO LIST
 - Unify gradle files with Kotlin DSL.
