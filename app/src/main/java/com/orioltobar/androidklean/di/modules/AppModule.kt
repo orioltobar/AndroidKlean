@@ -1,17 +1,20 @@
 package com.orioltobar.androidklean.di.modules
 
+import com.orioltobar.androidklean.di.BaseUrl
 import com.orioltobar.commons.AppDispatchers
 import com.orioltobar.commons.Constants.API_KEY
 import com.orioltobar.commons.Constants.USER_LANGUAGE
-import com.orioltobar.networkdatasource.di.BaseUrl
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import java.util.*
 import javax.inject.Named
 import javax.inject.Singleton
 
+@InstallIn(ApplicationComponent::class)
 @Module(includes = [ApplicationDataBindsModule::class])
 object AppModule {
 

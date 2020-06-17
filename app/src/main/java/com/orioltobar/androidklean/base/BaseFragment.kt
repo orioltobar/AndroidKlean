@@ -1,18 +1,13 @@
 package com.orioltobar.androidklean.base
 
-import com.orioltobar.androidklean.di.ViewModelFactory
+import androidx.fragment.app.Fragment
 import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.features.Error
 import com.orioltobar.features.Loading
 import com.orioltobar.features.NewValue
 import com.orioltobar.features.UiStatus
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 
-abstract class BaseFragment : DaggerFragment() {
-
-    @Inject
-    lateinit var vmFactory: ViewModelFactory
+abstract class BaseFragment : Fragment() {
 
     fun <T> handleUiStates(
         status: UiStatus<ErrorModel, T>,

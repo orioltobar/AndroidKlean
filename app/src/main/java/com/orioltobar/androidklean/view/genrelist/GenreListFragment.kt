@@ -11,17 +11,18 @@ import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
 import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
-import com.orioltobar.features.UiStatus
 import com.orioltobar.features.viewmodel.MovieGenresViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.genre_list_fragment.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class GenreListFragment : BaseFragment() {
 
     @Inject
     lateinit var genreListAdapter: GenreListAdapter
 
-    private val viewModel: MovieGenresViewModel by viewModels { vmFactory }
+    private val viewModel: MovieGenresViewModel by viewModels()
 
     private var onGenreClicked: (MovieGenreDetailModel) -> Unit = { genre ->
         val direction =

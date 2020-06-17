@@ -1,5 +1,6 @@
 package com.orioltobar.features.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
@@ -13,10 +14,9 @@ import com.orioltobar.features.UiStatus
 import com.orioltobar.features.base.BaseViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @ExperimentalCoroutinesApi
-class MovieViewModel @Inject constructor(
+class MovieViewModel @ViewModelInject constructor(
     private val getMovieUseCase: GetMovieUseCase,
     private val getMovieUseCaseFlow: GetMovieUseCaseFlow
 ) :

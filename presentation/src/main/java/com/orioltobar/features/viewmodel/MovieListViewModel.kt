@@ -1,5 +1,6 @@
 package com.orioltobar.features.viewmodel
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
@@ -10,9 +11,8 @@ import com.orioltobar.domain.usecases.GetMovieListByGenreUseCase
 import com.orioltobar.features.UiStatus
 import com.orioltobar.features.base.BaseViewModel
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
-class MovieListViewModel @Inject constructor(
+class MovieListViewModel @ViewModelInject constructor(
     private val movieListUseCase: GetMovieListByGenreUseCase
 ) : BaseViewModel<MovieModel>() {
 

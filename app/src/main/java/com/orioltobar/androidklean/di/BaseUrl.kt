@@ -1,4 +1,4 @@
-package com.orioltobar.networkdatasource.di
+package com.orioltobar.androidklean.di
 
 import javax.inject.Qualifier
 

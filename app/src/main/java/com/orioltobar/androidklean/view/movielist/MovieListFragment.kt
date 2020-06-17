@@ -12,11 +12,12 @@ import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
 import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
-import com.orioltobar.features.UiStatus
 import com.orioltobar.features.viewmodel.MovieListViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.movie_list_fragment.*
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class MovieListFragment : BaseFragment() {
 
     @Inject
@@ -24,7 +25,7 @@ class MovieListFragment : BaseFragment() {
 
     private val navArgs: MovieListFragmentArgs by navArgs()
 
-    private val viewModel: MovieListViewModel by viewModels { vmFactory }
+    private val viewModel: MovieListViewModel by viewModels()
 
     private val onMovieClick: (MovieModel) -> Unit = { movie ->
         val direction =

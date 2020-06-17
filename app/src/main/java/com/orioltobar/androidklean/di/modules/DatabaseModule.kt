@@ -1,19 +1,22 @@
-package com.orioltobar.diskdatasource.di
+package com.orioltobar.androidklean.di.modules
 
-import android.content.Context
+import android.app.Application
 import com.orioltobar.diskdatasource.dao.MovieDao
 import com.orioltobar.diskdatasource.dao.MovieGenreDao
 import com.orioltobar.diskdatasource.database.AppDataBase
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ApplicationComponent
 import javax.inject.Singleton
 
+@InstallIn(ApplicationComponent::class)
 @Module
 object DatabaseModule {
 
     @Provides
     @Singleton
-    fun provideDb(context: Context): AppDataBase = AppDataBase.getInstance(context)
+    fun provideDb(application: Application): AppDataBase = AppDataBase.getInstance(application)
 
     @Provides
     @Singleton

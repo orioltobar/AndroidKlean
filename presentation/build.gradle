@@ -3,6 +3,7 @@ import buildSrc.Versions
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
 
 android {
     compileSdkVersion 29
@@ -20,6 +21,12 @@ android {
 dependencies {
     implementation project(':commons')
     implementation project(':domain')
+
+    // Hilt
+    implementation "com.google.dagger:hilt-android:${Versions.hilt_version}"
+    kapt "com.google.dagger:hilt-android-compiler:${Versions.hilt_version}"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:${Versions.hilt_jetpack_version}"
+    kapt "androidx.hilt:hilt-compiler:${Versions.hilt_jetpack_version}"
 
     // Dagger
     implementation "com.google.dagger:dagger:${Versions.dagger_version}"

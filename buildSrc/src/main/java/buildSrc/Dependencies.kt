@@ -2,11 +2,13 @@ package buildSrc
 
 object Versions {
 
+    const val hilt_version = "2.28-alpha"
+    const val hilt_jetpack_version = "1.0.0-alpha01"
     const val androidx_version = "1.1.0"
     const val androidx_core_version = "1.2.0"
     const val androidx_lifecycle = "2.2.0"
     const val gradle_version = "3.5.1"
-    const val kotlin_version = "1.3.61"
+    const val kotlin_version = "1.3.72"
     const val retrofit_version = "2.7.0"
     const val moshi_converter_version = "2.4.0"
     const val okHttp_version = "3.11.0"
@@ -23,6 +25,7 @@ object Versions {
     const val palette_version = "1.0.0"
     const val robolectric_version = "4.3.1"
     const val fragment_test_version = "1.2.2"
+    const val fragment_version = "1.2.4"
 
     // AndroidX
     const val androidx_appcompat_version = "1.0.2"

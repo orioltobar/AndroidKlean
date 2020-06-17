@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
 import com.orioltobar.commons.error.ErrorModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class DiscoverFragment: BaseFragment() {
+@AndroidEntryPoint
+class DiscoverFragment : BaseFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
