@@ -23,7 +23,7 @@ class MovieGenresViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             emitLoadingState()
-            val request = getGenresListUseCase.execute()
+            val request = getGenresListUseCase()
             _genreLiveData.value = processModel(request)
         }
     }

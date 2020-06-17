@@ -24,7 +24,7 @@ class MovieListViewModel @Inject constructor(
         val safeValue = if (genreId == -1) Constants.DEFAULT_GENRE_ID else genreId
         viewModelScope.launch {
             _movieListDataStream.value = emitLoadingState()
-            val request = movieListUseCase.execute(safeValue)
+            val request = movieListUseCase(safeValue)
             _movieListDataStream.value = processModel(request)
         }
     }

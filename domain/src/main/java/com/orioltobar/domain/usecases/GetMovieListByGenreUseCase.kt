@@ -1,13 +1,17 @@
 package com.orioltobar.domain.usecases
 
+import com.orioltobar.commons.AppDispatchers
 import com.orioltobar.domain.repositories.MovieRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-class GetMovieListByGenreUseCase @Inject constructor(private val repository: MovieRepository) {
+class GetMovieListByGenreUseCase @Inject constructor(
+    appDispatchers: AppDispatchers,
+    private val repository: MovieRepository) {
 
-    suspend fun execute(genreId: Int) = withContext(Dispatchers.IO) {
+    private val ioDispatcher = appDispatchers.io
+
+    suspend operator fun invoke(genreId: Int) = withContext(ioDispatcher) {
         repository.getMovieListByGenre(genreId)
     }
 }
