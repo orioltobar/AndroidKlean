@@ -43,7 +43,7 @@ class GenreListFragment : BaseFragment() {
 
         viewModel.genreLiveData.observe(
             viewLifecycleOwner,
-            Observer<UiStatus<List<MovieGenreDetailModel>, ErrorModel>> {
+            Observer {
                 handleUiStates(it, genreListAdapter::updateItems)
                 genreListProgressBar.visibility = View.GONE
             })

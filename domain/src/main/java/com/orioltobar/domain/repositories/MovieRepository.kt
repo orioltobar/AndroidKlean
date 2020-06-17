@@ -8,13 +8,13 @@ import kotlinx.coroutines.flow.Flow
 
 interface MovieRepository {
 
-    suspend fun getMovie(id: Long): Response<MovieModel, ErrorModel>
+    suspend fun getMovie(id: Long): Response<ErrorModel, MovieModel>
 
-    fun getMovieFlow(): Flow<Response<MovieModel, ErrorModel>>
+    fun getMovieFlow(): Flow<Response<ErrorModel, MovieModel>>
 
-    suspend fun getMovieList(pageId: Int): Response<List<MovieModel>, ErrorModel>
+    suspend fun getMovieList(pageId: Int): Response<ErrorModel, List<MovieModel>>
 
-    suspend fun getMovieListByGenre(genreId: Int): Response<List<MovieModel>, ErrorModel>
+    suspend fun getMovieListByGenre(genreId: Int): Response<ErrorModel, List<MovieModel>>
 
-    suspend fun getMovieGenres(): Response<List<MovieGenreDetailModel>, ErrorModel>
+    suspend fun getMovieGenres(): Response<ErrorModel, List<MovieGenreDetailModel>>
 }

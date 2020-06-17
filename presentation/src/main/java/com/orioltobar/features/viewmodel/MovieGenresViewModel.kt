@@ -16,8 +16,8 @@ class MovieGenresViewModel @Inject constructor(
 ) : BaseViewModel<List<MovieGenreDetailModel>>() {
 
     private val _genreLiveData =
-        MutableLiveData<UiStatus<List<MovieGenreDetailModel>, ErrorModel>>()
-    val genreLiveData: LiveData<UiStatus<List<MovieGenreDetailModel>, ErrorModel>>
+        MutableLiveData<UiStatus<ErrorModel, List<MovieGenreDetailModel>>>()
+    val genreLiveData: LiveData<UiStatus<ErrorModel, List<MovieGenreDetailModel>>>
         get() = _genreLiveData
 
     init {

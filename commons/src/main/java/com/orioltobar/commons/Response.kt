@@ -1,14 +1,16 @@
 package com.orioltobar.commons
 
-sealed class Response<out T, out E>
+import com.orioltobar.commons.error.ErrorModel
 
-class Success<T>(val result: T) : Response<T, Nothing>()
-class Failure<E>(val error: E) : Response<Nothing, E>()
+sealed class Response<out E, out T>
+
+class Success<T>(val result: T) : Response<Nothing, T>()
+class Failure(val error: ErrorModel) : Response<ErrorModel, Nothing>()
 
 /**
  * Then response of [T] is mapped using a [lambda] to return a new CoroutineResponse type [V].
  */
-inline fun <T, V, E> Response<T, E>.mapResponse(lambda: (T) -> V): Response<V, E> {
+inline fun <T, V> Response<ErrorModel, T>.mapResponse(lambda: (T) -> V): Response<ErrorModel, V> {
     return when (this) {
         is Success -> {
             Success(lambda(this.result))
@@ -25,10 +27,10 @@ inline fun <T, V, E> Response<T, E>.mapResponse(lambda: (T) -> V): Response<V, E
  *
  * @return The result of the took action.
  */
-inline fun <T, V, E> Response<T, E>.either(
-    onSuccess: (T) -> V,
-    onFailure: (E) -> V
-): V =
+inline fun <T> Response<ErrorModel, T>.either(
+    onSuccess: (T) -> Unit,
+    onFailure: (ErrorModel) -> Unit
+): Unit =
     when (this) {
         is Success -> {
             onSuccess.invoke(this.result)
@@ -41,7 +43,7 @@ inline fun <T, V, E> Response<T, E>.either(
 /**
  * Returns the result if Success, null elsewhere.
  */
-fun <T, E> Response<T, E>.valueOrNull(): T? =
+fun <T> Response<ErrorModel, T>.valueOrNull(): T? =
     when (this) {
         is Success -> {
             this.result

@@ -4,6 +4,7 @@ import com.orioltobar.commons.Failure
 import com.orioltobar.commons.Response
 import com.orioltobar.commons.Success
 import com.orioltobar.commons.error.ErrorModel
+import com.orioltobar.commons.error.GenericError
 import com.orioltobar.commons.singleSourceOfTruth
 import com.orioltobar.data.datasources.DbDataSource
 import com.orioltobar.data.datasources.NetworkDataSource
@@ -35,7 +36,7 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMovie(id: Long): Response<MovieModel, ErrorModel> {
+    override suspend fun getMovie(id: Long): Response<ErrorModel, MovieModel> {
         val genresList = initOrReturnGenresArray()
         return singleSourceOfTruth(
             dbDataSource = {
@@ -57,7 +58,7 @@ class MovieRepositoryImpl @Inject constructor(
         )
     }
 
-    override fun getMovieFlow(): Flow<Response<MovieModel, ErrorModel>> = flow {
+    override fun getMovieFlow(): Flow<Response<ErrorModel, MovieModel>> = flow {
         for (x in 0 until 10) {
             val id = Random.nextLong(1L, 999L)
             emit(dataSource.getMovie(id))
@@ -66,7 +67,7 @@ class MovieRepositoryImpl @Inject constructor(
 
     }
 
-    override suspend fun getMovieList(pageId: Int): Response<List<MovieModel>, ErrorModel> {
+    override suspend fun getMovieList(pageId: Int): Response<ErrorModel, List<MovieModel>> {
         initOrReturnGenresArray()
         return singleSourceOfTruth(
             dbDataSource = { dbDataSource.getMovieList(pageId) },
@@ -80,7 +81,7 @@ class MovieRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getMovieListByGenre(genreId: Int): Response<List<MovieModel>, ErrorModel> {
+    override suspend fun getMovieListByGenre(genreId: Int): Response<ErrorModel, List<MovieModel>> {
         val genresList = initOrReturnGenresArray()
         val request = dataSource.getMoviePageByGenre(genreId)
         if (request is Success) {
@@ -93,12 +94,12 @@ class MovieRepositoryImpl @Inject constructor(
         return request
     }
 
-    override suspend fun getMovieGenres(): Response<List<MovieGenreDetailModel>, ErrorModel> {
+    override suspend fun getMovieGenres(): Response<ErrorModel, List<MovieGenreDetailModel>> {
         val genres = getGenres()
         return if (genres.isNotEmpty()) {
             Success(genres)
         } else {
-            Failure(ErrorModel("Genre list is empty."))
+            Failure(ErrorModel("Genre list is empty.", GenericError()))
         }
     }
 

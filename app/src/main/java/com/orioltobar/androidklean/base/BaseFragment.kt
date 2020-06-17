@@ -15,7 +15,7 @@ abstract class BaseFragment : DaggerFragment() {
     lateinit var vmFactory: ViewModelFactory
 
     fun <T> handleUiStates(
-        status: UiStatus<T, ErrorModel>,
+        status: UiStatus<ErrorModel, T>,
         success: (T) -> Unit
     ) =
         when (status) {

@@ -47,7 +47,7 @@ class MovieListFragment : BaseFragment() {
         viewModel.getMovieListFromGenre(navArgs.id)
         viewModel.movieListDataStream.observe(
             viewLifecycleOwner,
-            Observer<UiStatus<List<MovieModel>, ErrorModel>> {
+            Observer {
                 handleUiStates(
                     it,
                     ::processNewValue

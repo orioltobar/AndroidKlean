@@ -17,21 +17,21 @@ class MovieDataSourceImpl @Inject constructor(
     private val movieGenreMapper: MovieGenresMapper
 ) : NetworkDataSource {
 
-    override suspend fun getMoviePage(pageId: Int): Response<List<MovieModel>, ErrorModel> =
+    override suspend fun getMoviePage(pageId: Int): Response<ErrorModel, List<MovieModel>> =
         safeApiCall { movieService.getMovieList(pageId) }.mapResponse {
             it.movieList.map(movieMapper::map)
         }
 
-    override suspend fun getMoviePageByGenre(genreId: Int): Response<List<MovieModel>, ErrorModel> =
+    override suspend fun getMoviePageByGenre(genreId: Int): Response<ErrorModel, List<MovieModel>> =
         safeApiCall {
             movieService.getMovieGenreList(genreId = genreId)
         }.mapResponse {
             it.movieList.map(movieMapper::map)
         }
 
-    override suspend fun getMovie(id: Long): Response<MovieModel, ErrorModel> =
+    override suspend fun getMovie(id: Long): Response<ErrorModel, MovieModel> =
         safeApiCall { movieService.getMovie(id) }.mapResponse(movieMapper::map)
 
-    override suspend fun getGenres(): Response<MovieGenresModel, ErrorModel> =
+    override suspend fun getGenres(): Response<ErrorModel, MovieGenresModel> =
         safeApiCall { movieService.getGenres() }.mapResponse(movieGenreMapper::map)
 }

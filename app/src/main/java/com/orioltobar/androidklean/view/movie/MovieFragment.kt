@@ -47,7 +47,7 @@ class MovieFragment : BaseFragment() {
         viewModel.execute(args.id)
         viewModel.movieDataStream.observe(
             viewLifecycleOwner,
-            Observer<UiStatus<MovieModel, ErrorModel>> { handleUiStates(it, ::processNewValue) })
+            Observer { handleUiStates(it, ::processNewValue) })
     }
 
     private fun processNewValue(model: MovieModel) {

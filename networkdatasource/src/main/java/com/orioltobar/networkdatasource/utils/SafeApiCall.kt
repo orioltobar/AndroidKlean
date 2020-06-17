@@ -3,6 +3,7 @@ package com.orioltobar.networkdatasource.utils
 import com.orioltobar.commons.Failure
 import com.orioltobar.commons.Response
 import com.orioltobar.commons.Success
+import com.orioltobar.commons.error.ApiError
 import com.orioltobar.commons.error.ErrorModel
 
 /**
@@ -11,14 +12,14 @@ import com.orioltobar.commons.error.ErrorModel
  */
 suspend fun <T> safeApiCall(
     call: suspend () -> T
-): Response<T, ErrorModel> =
+): Response<ErrorModel, T> =
     try {
         val response = call()
         if (response == null) {
-            Failure(ErrorModel(""))
+            Failure(ErrorModel("", ApiError.RequestError))
         } else {
-            Success(response)
+            Success(response) as Response<Nothing, T>
         }
     } catch (exception: Exception) {
-        Failure(ErrorModel(exception.message ?: ""))
+        Failure(ErrorModel(exception.message ?: "", ApiError.RequestError))
     }

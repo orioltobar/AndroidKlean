@@ -22,14 +22,14 @@ class MovieViewModel @Inject constructor(
 ) :
     BaseViewModel<MovieModel>() {
 
-    private val _movieDataStream = MutableLiveData<UiStatus<MovieModel, ErrorModel>>()
-    val movieDataStream: LiveData<UiStatus<MovieModel, ErrorModel>>
+    private val _movieDataStream = MutableLiveData<UiStatus<ErrorModel, MovieModel>>()
+    val movieDataStream: LiveData<UiStatus<ErrorModel, MovieModel>>
         get() = _movieDataStream
 
     private val _movieUiModelFlow =
         getMovieUseCaseFlow.execute()
             .asLiveData(viewModelScope.coroutineContext)
-    val movieModelFlow: LiveData<Response<MovieModel, ErrorModel>>
+    val movieModelFlow: LiveData<Response<ErrorModel, MovieModel>>
         get() = _movieUiModelFlow
 
     fun execute(id: Long) {

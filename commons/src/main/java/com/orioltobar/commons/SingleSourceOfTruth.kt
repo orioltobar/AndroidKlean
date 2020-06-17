@@ -1,19 +1,26 @@
 package com.orioltobar.commons
 
+import com.orioltobar.commons.error.ErrorModel
+
 /**
  * Single source of truth pattern. Database serves as SSOT in this case. Network calls are used
  * to store the values in the database.
  */
-suspend fun <V, E> singleSourceOfTruth(
-    dbDataSource: suspend (Unit) -> Response<V, E>,
-    networkDataSource: suspend (Unit) -> Response<V, E>,
-    dbCallback: suspend (V) -> Response<V, E>
-): Response<V, E> =
-    dbDataSource(Unit).either(onSuccess = { Success(it) },
-        onFailure = {
-            networkDataSource(Unit).either(
-                onSuccess = { apiResult ->
-                    dbCallback.invoke(apiResult)
-                },
-                onFailure = { error -> Failure(error) })
-        })
+suspend fun <V> singleSourceOfTruth(
+    dbDataSource: suspend () -> Response<ErrorModel, V>,
+    networkDataSource: suspend () -> Response<ErrorModel, V>,
+    dbCallback: suspend (V) -> Response<ErrorModel, V>
+): Response<ErrorModel, V> =
+    dbDataSource().let { response ->
+        when (response) {
+            is Success -> Success(response.result)
+            is Failure -> {
+                networkDataSource().let { apiResult ->
+                    when (apiResult) {
+                        is Success -> dbCallback(apiResult.result)
+                        is Failure -> Failure(apiResult.error)
+                    }
+                }
+            }
+        }
+    }

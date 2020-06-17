@@ -7,11 +7,11 @@ import com.orioltobar.domain.models.movie.MovieModel
 
 interface NetworkDataSource {
 
-    suspend fun getMoviePage(pageId: Int): Response<List<MovieModel>, ErrorModel>
+    suspend fun getMoviePage(pageId: Int): Response<ErrorModel, List<MovieModel>>
 
-    suspend fun getMoviePageByGenre(genreId: Int): Response<List<MovieModel>, ErrorModel>
+    suspend fun getMoviePageByGenre(genreId: Int): Response<ErrorModel, List<MovieModel>>
 
-    suspend fun getMovie(id: Long): Response<MovieModel, ErrorModel>
+    suspend fun getMovie(id: Long): Response<ErrorModel, MovieModel>
 
-    suspend fun getGenres(): Response<MovieGenresModel, ErrorModel>
+    suspend fun getGenres(): Response<ErrorModel, MovieGenresModel>
 }

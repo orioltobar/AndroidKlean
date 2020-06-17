@@ -14,7 +14,7 @@ class GetGenresListUseCase @Inject constructor(
 
     private val ioDispatcher = appDispatchers.io
 
-    suspend operator fun invoke(): Response<List<MovieGenreDetailModel>, ErrorModel> =
+    suspend operator fun invoke(): Response<ErrorModel, List<MovieGenreDetailModel>> =
         withContext(ioDispatcher) {
             movieRepository.getMovieGenres()
         }

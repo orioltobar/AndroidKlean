@@ -16,8 +16,8 @@ class MovieListViewModel @Inject constructor(
     private val movieListUseCase: GetMovieListByGenreUseCase
 ) : BaseViewModel<MovieModel>() {
 
-    private val _movieListDataStream = MutableLiveData<UiStatus<List<MovieModel>, ErrorModel>>()
-    val movieListDataStream: LiveData<UiStatus<List<MovieModel>, ErrorModel>>
+    private val _movieListDataStream = MutableLiveData<UiStatus<ErrorModel, List<MovieModel>>>()
+    val movieListDataStream: LiveData<UiStatus<ErrorModel, List<MovieModel>>>
         get() = _movieListDataStream
 
     fun getMovieListFromGenre(genreId: Int) {
