@@ -1,8 +1,8 @@
 package com.orioltobar.networkdatasource.api.mappers
 
-import com.google.gson.Gson
 import com.orioltobar.commons.MockObjects
 import com.orioltobar.networkdatasource.api.models.MovieGenresApiModel
+import com.squareup.moshi.Moshi
 import io.mockk.MockKAnnotations
 import io.mockk.impl.annotations.MockK
 import org.junit.Assert.assertEquals
@@ -17,13 +17,15 @@ class MovieGenresMapperTest {
     @MockK
     private lateinit var detailApiModel: MovieGenreDetailMapper
 
+    private val moshi = Moshi.Builder().build()
+
     private val mapper by lazy {
         MovieGenresMapper(detailApiModel)
     }
 
     @Test
     fun `Map non-null received API values`() {
-        val apiModel = Gson().fromJson(MockObjects.genreJson, MovieGenresApiModel::class.java)
+        val apiModel = moshi.adapter(MovieGenresApiModel::class.java).fromJson(MockObjects.genreJson)
 
         val model = mapper.map(apiModel)
 

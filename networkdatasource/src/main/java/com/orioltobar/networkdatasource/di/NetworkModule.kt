@@ -1,7 +1,5 @@
 package com.orioltobar.networkdatasource.di
 
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.orioltobar.commons.Constants.API_KEY
 import com.orioltobar.commons.Constants.RETROFIT_TIMEOUT
 import com.orioltobar.commons.Constants.USER_LANGUAGE
@@ -13,7 +11,7 @@ import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -32,13 +30,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideRetrofitBuilder(
-        @BaseUrl url: String,
-        gsonConverterFactory:
-        GsonConverterFactory
+        @BaseUrl url: String
     ): Retrofit.Builder =
         Retrofit.Builder()
             .baseUrl(url)
-            .addConverterFactory(gsonConverterFactory)
+            .addConverterFactory(MoshiConverterFactory.create())
 
     @Provides
     @Singleton
@@ -54,14 +50,6 @@ object NetworkModule {
             readTimeout(RETROFIT_TIMEOUT, TimeUnit.SECONDS)
             connectTimeout(RETROFIT_TIMEOUT, TimeUnit.SECONDS)
         }
-
-    @Provides
-    @Singleton
-    fun provideGson(): Gson = GsonBuilder().create()
-
-    @Provides
-    @Singleton
-    fun provideGsonConverter(gson: Gson): GsonConverterFactory = GsonConverterFactory.create(gson)
 
     @Provides
     @Singleton

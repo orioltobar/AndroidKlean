@@ -1,8 +1,8 @@
 package com.orioltobar.networkdatasource.api.models
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class MovieListApiModel(
-    @SerializedName("results")
+    @field:Json(name ="results")
     val movieList: List<MovieApiModel> = emptyList()
 )

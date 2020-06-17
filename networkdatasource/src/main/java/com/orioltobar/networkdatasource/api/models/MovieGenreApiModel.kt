@@ -1,16 +1,16 @@
 package com.orioltobar.networkdatasource.api.models
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class MovieGenresApiModel(
-    @SerializedName("genres")
+    @field:Json(name = "genres")
     val genre: List<MovieGenreDetailApiModel?>? = null
 )
 
 data class MovieGenreDetailApiModel(
-    @SerializedName("id")
+    @field:Json(name ="id")
     val id: Int? = null,
 
-    @SerializedName("name")
+    @field:Json(name ="name")
     val name: String? = null
 )

@@ -1,47 +1,47 @@
 package com.orioltobar.networkdatasource.api.models
 
-import com.google.gson.annotations.SerializedName
+import com.squareup.moshi.Json
 
 data class MovieApiModel(
-    @SerializedName("id")
+    @field:Json(name = "id")
     val id: Long? = null,
 
-    @SerializedName("original_title")
+    @field:Json(name = "original_title")
     val originalTitle: String? = null,
 
-    @SerializedName("title")
+    @field:Json(name = "title")
     val title: String? = null,
 
-    @SerializedName("popularity")
+    @field:Json(name = "popularity")
     val popularity: Float? = null,
 
-    @SerializedName("vote_count")
+    @field:Json(name = "vote_count")
     val voteCount: Long? = null,
 
-    @SerializedName("video")
+    @field:Json(name = "video")
     val video: Boolean? = null,
 
-    @SerializedName("poster_path")
+    @field:Json(name = "poster_path")
     val frontImageUrl: String? = null,
 
-    @SerializedName("adult")
+    @field:Json(name = "adult")
     val adult: Boolean? = null,
 
-    @SerializedName("backdrop_path")
+    @field:Json(name = "backdrop_path")
     val backImageUrl: String? = null,
 
-    @SerializedName("original_language")
+    @field:Json(name = "original_language")
     val originalLanguage: String? = null,
 
-    @SerializedName("genre_ids")
+    @field:Json(name = "genre_ids")
     val genreIds: List<Int?>? = null,
 
-    @SerializedName("vote_average")
+    @field:Json(name = "vote_average")
     val voteAverage: Float? = null,
 
-    @SerializedName("overview")
+    @field:Json(name = "overview")
     val overview: String? = null,
 
-    @SerializedName("release_date")
+    @field:Json(name = "release_date")
     val releaseDate: String? = null
 )

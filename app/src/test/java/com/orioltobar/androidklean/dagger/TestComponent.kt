@@ -1,8 +1,6 @@
 package com.orioltobar.androidklean.dagger
 
 import android.content.Context
-import com.google.gson.Gson
-import com.google.gson.GsonBuilder
 import com.orioltobar.androidklean.App
 import com.orioltobar.androidklean.di.modules.ActivityBindingModule
 import com.orioltobar.androidklean.di.modules.AppModule
@@ -19,7 +17,7 @@ import dagger.android.AndroidInjector
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -60,13 +58,11 @@ object TestNetworkModule {
     @Provides
     @Singleton
     fun provideRetrofitBuilder(
-        @BaseUrl url: String,
-        gsonConverterFactory:
-        GsonConverterFactory
+        @BaseUrl url: String
     ): Retrofit.Builder =
         Retrofit.Builder()
             .baseUrl(url)
-            .addConverterFactory(gsonConverterFactory)
+            .addConverterFactory(MoshiConverterFactory.create())
 
     @Provides
     @Singleton
@@ -85,14 +81,6 @@ object TestNetworkModule {
 
     @Provides
     @Singleton
-    fun provideGson(): Gson = GsonBuilder().create()
-
-    @Provides
-    @Singleton
-    fun provideGsonConverter(gson: Gson): GsonConverterFactory = GsonConverterFactory.create(gson)
-
-    @Provides
-    @Singleton
     fun provideNetworkProvider(
         @Named(Constants.API_KEY) apiKey: String,
         @Named(Constants.USER_LANGUAGE) language: String
@@ -103,5 +91,5 @@ object TestNetworkModule {
             get() = language
     }
 
-    const val RETROFIT_TIMEOUT = 60L
+    private const val RETROFIT_TIMEOUT = 60L
 }

@@ -1,9 +1,9 @@
 package com.orioltobar.networkdatasource.api.mappers
 
-import com.google.gson.Gson
 import com.orioltobar.commons.Constants
 import com.orioltobar.commons.MockObjects
 import com.orioltobar.networkdatasource.api.models.MovieApiModel
+import com.squareup.moshi.Moshi
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -11,27 +11,29 @@ class MovieMapperTest {
 
     private val mapper = MovieMapper()
 
+    private val moshi = Moshi.Builder().build()
+
     @Test
     fun `Map non-null received API values`() {
-        val apiModel = Gson().fromJson(MockObjects.movieJson, MovieApiModel::class.java)
+        val apiModel = moshi.adapter(MovieApiModel::class.java).fromJson(MockObjects.movieJson)
 
         val model = mapper.map(apiModel)
 
-        assertEquals(apiModel.id, model.id)
-        assertEquals(apiModel.originalTitle, model.originalTitle)
-        assertEquals(apiModel.title, model.title)
-        assertEquals(apiModel.popularity, model.popularity)
-        assertEquals(apiModel.voteCount, model.voteCount)
-        assertEquals(apiModel.video, model.video)
-        assertEquals(Constants.IMAGE_BASE_URL + apiModel.frontImageUrl, model.frontImageUrl)
-        assertEquals(apiModel.adult, model.adult)
-        assertEquals(Constants.IMAGE_BASE_URL + apiModel.backImageUrl, model.backImageUrl)
-        assertEquals(apiModel.originalLanguage, model.originalLanguage)
-        assertEquals(apiModel.genreIds, model.genreIds)
-        assertEquals(apiModel.genreIds?.getOrNull(0), model.mainGenreId)
-        assertEquals(apiModel.voteAverage, model.voteAverage)
-        assertEquals(apiModel.overview, model.overview)
-        assertEquals(apiModel.releaseDate, model.releaseDate)
+        assertEquals(apiModel?.id, model.id)
+        assertEquals(apiModel?.originalTitle, model.originalTitle)
+        assertEquals(apiModel?.title, model.title)
+        assertEquals(apiModel?.popularity, model.popularity)
+        assertEquals(apiModel?.voteCount, model.voteCount)
+        assertEquals(apiModel?.video, model.video)
+        assertEquals(Constants.IMAGE_BASE_URL + apiModel?.frontImageUrl, model.frontImageUrl)
+        assertEquals(apiModel?.adult, model.adult)
+        assertEquals(Constants.IMAGE_BASE_URL + apiModel?.backImageUrl, model.backImageUrl)
+        assertEquals(apiModel?.originalLanguage, model.originalLanguage)
+        assertEquals(apiModel?.genreIds, model.genreIds)
+        assertEquals(apiModel?.genreIds?.getOrNull(0), model.mainGenreId)
+        assertEquals(apiModel?.voteAverage, model.voteAverage)
+        assertEquals(apiModel?.overview, model.overview)
+        assertEquals(apiModel?.releaseDate, model.releaseDate)
     }
 
     @Test

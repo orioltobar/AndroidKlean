@@ -1,6 +1,5 @@
 package com.orioltobar.networkdatasource.api.data
 
-import com.google.gson.Gson
 import com.orioltobar.commons.Constants
 import com.orioltobar.commons.MockObjects
 import com.orioltobar.networkdatasource.api.mappers.MovieGenresMapper
@@ -8,6 +7,7 @@ import com.orioltobar.networkdatasource.api.mappers.MovieMapper
 import com.orioltobar.networkdatasource.api.models.MovieApiModel
 import com.orioltobar.networkdatasource.api.models.MovieGenresApiModel
 import com.orioltobar.networkdatasource.api.models.MovieListApiModel
+import com.squareup.moshi.Moshi
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -37,6 +37,8 @@ class MovieDataSourceImplTest {
     @MockK
     private lateinit var genreMock: MovieGenresApiModel
 
+    private val moshi = Moshi.Builder().build()
+
     private val dataSource by lazy {
         MovieDataSourceImpl(
             movieService,
@@ -48,11 +50,11 @@ class MovieDataSourceImplTest {
     @Before
     fun setup() {
         val mockMovieListApiModel =
-            Gson().fromJson(MockObjects.movieListJson, MovieListApiModel::class.java)
+            moshi.adapter(MovieListApiModel::class.java).fromJson(MockObjects.movieListJson)
 
         coEvery { movieService.getMovie(any()) } returns movieMock
         coEvery { movieService.getGenres() } returns genreMock
-        coEvery { movieService.getMovieList(any()) } returns mockMovieListApiModel
+        coEvery { movieService.getMovieList(any()) } returns mockMovieListApiModel!!
         coEvery { movieService.getMovieGenreList(genreId = any()) } returns mockMovieListApiModel
         every { movieMapper.map(any()) } returns mockk()
         every { movieGenreMapper.map(any()) } returns mockk()
