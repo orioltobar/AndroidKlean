@@ -12,8 +12,9 @@ app -> presentation -> domain/commons <- data <- networkdatasource/diskdatasourc
 - Kotlin.
 - MVVM pattern.
 - LiveData with Coroutines.
-- Dagger2.
+- Dagger Hilt.
 - Retrofit.
+- Moshi.
 - Glide and Lottie.
 - Architecture Components: Room, Navigation, Lifecyle.
 - Multi module app.
