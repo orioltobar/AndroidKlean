@@ -69,4 +69,8 @@ class MovieListFragment : BaseFragment() {
         movieListProgressBar.visibility = View.VISIBLE
         println("TRACK STATUS: LOADING...")
     }
+
+    companion object {
+        const val TAG = "MovieListFragment"
+    }
 }

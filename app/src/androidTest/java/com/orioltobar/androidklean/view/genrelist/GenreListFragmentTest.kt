@@ -1,95 +1,64 @@
 package com.orioltobar.androidklean.view.genrelist
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import androidx.fragment.app.testing.FragmentScenario
-import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavHostController
-import androidx.navigation.Navigation
 import androidx.navigation.testing.TestNavHostController
-import androidx.test.rule.ActivityTestRule
+import androidx.test.core.app.ApplicationProvider
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.UiAssertions
-import com.orioltobar.androidklean.base.MockActivity
-import com.orioltobar.androidklean.di.TestViewModelModule
+import com.orioltobar.androidklean.di.launchFragmentInHiltContainer
+import com.orioltobar.commons.Failure
+import com.orioltobar.commons.Success
+import com.orioltobar.commons.error.ApiError
 import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
+import com.orioltobar.domain.usecases.GetGenresListUseCase
 import com.orioltobar.features.NewValue
 import com.orioltobar.features.UiStatus
-import com.orioltobar.features.viewmodel.MovieGenresViewModel
+import dagger.hilt.android.testing.BindValue
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.impl.annotations.MockK
-import kotlinx.android.synthetic.main.genre_list_fragment.*
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@HiltAndroidTest
 class GenreListFragmentTest : UiAssertions {
 
     init {
         MockKAnnotations.init(this, relaxed = true)
     }
 
-    private lateinit var genreListFragment: GenreListFragment
-
+    @BindValue
     @MockK
-    private lateinit var movieGenresViewModelMock: MovieGenresViewModel
-
-    private val _genreLiveData =
-        MutableLiveData<UiStatus<List<MovieGenreDetailModel>, ErrorModel>>()
-    private val genreLiveData: LiveData<UiStatus<List<MovieGenreDetailModel>, ErrorModel>>
-        get() = _genreLiveData
+    lateinit var mockUseCase: GetGenresListUseCase
 
     @get:Rule
-    val rule = InstantTaskExecutorRule()
-
-    @get:Rule
-    val activityRule = ActivityTestRule<MockActivity>(MockActivity::class.java, false, false)
+    var hiltRule = HiltAndroidRule(this)
 
     lateinit var navHostController: NavHostController
 
-    lateinit var scenario: FragmentScenario<GenreListFragment>
-
     @Before
     fun setup() {
-        every { movieGenresViewModelMock.genreLiveData } returns genreLiveData
-        every { TestViewModelModule.viewModelFactory.create<MovieGenresViewModel>(any()) } returns movieGenresViewModelMock
-
-        activityRule.launchActivity(null)
-
-        navHostController = TestNavHostController(activityRule.activity)
+        navHostController = TestNavHostController(ApplicationProvider.getApplicationContext())
         navHostController.setGraph(R.navigation.nav_graph)
-
-        scenario = launchFragmentInContainer {
-            genreListFragment = GenreListFragment().also { fragment ->
-                fragment.viewLifecycleOwnerLiveData.observeForever { viewLifecycleOwner ->
-                    if (viewLifecycleOwner != null) {
-                        Navigation.setViewNavController(fragment.requireView(), navHostController)
-                    }
-                }
-            }
-            genreListFragment
-        }
     }
 
     @Test
     fun setMovieGenreListTest() {
+        coEvery { mockUseCase.invoke() } returns Success((getGenreMockList() as NewValue).result)
+
+        launchFragmentInHiltContainer<GenreListFragment>(navHost = navHostController)
+
         val expectedList = (getGenreMockList() as NewValue).result
-
-        scenario.onFragment {
-            _genreLiveData.value = getGenreMockList()
-        }
-
-        assertTrue(genreLiveData.value is NewValue)
-        checkViewIsNotDisplayed(genreListFragment.genreListProgressBar.id)
-        checkRecyclerViewItemCount(genreListFragment.genreListRecyclerView.id, expectedList.size)
+        checkViewIsNotDisplayed(R.id.genreListProgressBar)
+        checkRecyclerViewItemCount(R.id.genreListRecyclerView, expectedList.size)
         expectedList.forEachIndexed { index, element ->
             checkThatRecyclerViewItemHasText(
-                genreListFragment.genreListRecyclerView.id,
+                R.id.genreListRecyclerView,
                 index,
                 element.name
             )
@@ -98,25 +67,25 @@ class GenreListFragmentTest : UiAssertions {
 
     @Test
     fun onGenreClickedTest() {
-        scenario.onFragment {
-            _genreLiveData.value = getGenreMockList()
-        }
+        coEvery { mockUseCase.invoke() } returns Success((getGenreMockList() as NewValue).result)
 
-        performRecyclerViewItemClick(genreListFragment.genreListRecyclerView.id, 0)
+        launchFragmentInHiltContainer<GenreListFragment>(navHost = navHostController)
+
+        performRecyclerViewItemClick(R.id.genreListRecyclerView, 0)
 
         assertEquals(navHostController.currentDestination?.id, R.id.movieListFragment)
     }
 
     @Test
     fun onLoadingMustShowLoadingProgressBarTest() {
-        scenario.onFragment {
-            it.onLoading()
-        }
+        coEvery { mockUseCase.invoke() } returns Failure(ErrorModel("", ApiError.RequestError))
 
-        checkViewIsDisplayed(genreListFragment.genreListProgressBar.id)
+        launchFragmentInHiltContainer<GenreListFragment>(navHost = navHostController)
+
+        checkViewIsDisplayed(R.id.genreListProgressBar)
     }
 
-    private fun getGenreMockList(): UiStatus<List<MovieGenreDetailModel>, ErrorModel> =
+    private fun getGenreMockList(): UiStatus<ErrorModel, List<MovieGenreDetailModel>> =
         NewValue(
             listOf(
                 MovieGenreDetailModel(12, "Action"),

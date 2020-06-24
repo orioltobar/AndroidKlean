@@ -45,8 +45,10 @@ class GenreListFragment : BaseFragment() {
         viewModel.genreLiveData.observe(
             viewLifecycleOwner,
             Observer {
-                handleUiStates(it, genreListAdapter::updateItems)
-                genreListProgressBar.visibility = View.GONE
+                handleUiStates(it) { value ->
+                    genreListProgressBar.visibility = View.GONE
+                    genreListAdapter.updateItems(value)
+                }
             })
     }
 
@@ -57,5 +59,9 @@ class GenreListFragment : BaseFragment() {
     override fun onLoading() {
         genreListProgressBar.visibility = View.VISIBLE
         println("LOADING GENRES")
+    }
+
+    companion object {
+        const val TAG: String = "GenreListFragment"
     }
 }

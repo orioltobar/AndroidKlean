@@ -5,6 +5,8 @@ import androidx.test.rule.ActivityTestRule
 import com.orioltobar.androidklean.UiAssertions
 import com.orioltobar.androidklean.base.MockActivity
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
@@ -12,11 +14,15 @@ import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
+@HiltAndroidTest
 class GenreListViewHolderTest : UiAssertions {
 
     init {
         MockKAnnotations.init(this, relaxed = true)
     }
+
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
     private lateinit var holder: GenreListViewHolder
 

@@ -15,7 +15,7 @@ import javax.inject.Named
 import javax.inject.Singleton
 
 @InstallIn(ApplicationComponent::class)
-@Module(includes = [ApplicationDataBindsModule::class])
+@Module
 object AppModule {
 
     @Provides

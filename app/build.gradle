@@ -45,10 +45,7 @@ dependencies {
 
     // Dagger
     implementation "com.google.dagger:dagger:${Versions.dagger_version}"
-//    implementation "com.google.dagger:dagger-android:${Versions.dagger_version}"
-//    implementation "com.google.dagger:dagger-android-support:${Versions.dagger_version}"
     kapt "com.google.dagger:dagger-compiler:${Versions.dagger_version}"
-//    kapt "com.google.dagger:dagger-android-processor:${Versions.dagger_version}"
 
     // Hilt
     implementation "com.google.dagger:hilt-android:${Versions.hilt_version}"
@@ -90,4 +87,8 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:${Versions.navigation_version}"
     androidTestImplementation "androidx.test:rules:${Versions.androidx_core_version}"
     debugImplementation "androidx.fragment:fragment-testing:${Versions.fragment_test_version}"
+
+    // Hilt testing dependencies
+    androidTestImplementation "com.google.dagger:hilt-android-testing:${Versions.hilt_version}"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:${Versions.hilt_version}"
 }

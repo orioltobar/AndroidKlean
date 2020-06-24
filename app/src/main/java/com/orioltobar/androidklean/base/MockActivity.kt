@@ -9,10 +9,12 @@ import androidx.fragment.app.FragmentActivity
 import com.orioltobar.androidklean.R
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import dagger.hilt.android.AndroidEntryPoint
 
 /**
  * Activity provided to run instrumented unit tests for custom view.
  */
+@AndroidEntryPoint
 class MockActivity : FragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +32,12 @@ class MockActivity : FragmentActivity() {
             .addView(view, 0, layoutParams)
     }
 
-    fun setFragment(fragment: Fragment) {
+    fun setFragment(fragment: Fragment, tag: String) {
         supportFragmentManager.beginTransaction()
             .replace(android.R.id.content, fragment)
-            .addToBackStack(null)
+            .addToBackStack(tag)
             .commitAllowingStateLoss()
     }
+
+    fun getFragment(tag: String): Fragment? = supportFragmentManager.findFragmentByTag(tag)
 }

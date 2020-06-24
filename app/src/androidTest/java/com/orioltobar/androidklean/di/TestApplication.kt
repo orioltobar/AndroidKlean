@@ -1,22 +1,20 @@
 package com.orioltobar.androidklean.di
 
-import com.orioltobar.androidklean.App
-import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import javax.inject.Inject
+import androidx.test.core.app.ActivityScenario
+import com.orioltobar.androidklean.MainActivity
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
+import org.junit.Rule
+import org.junit.Test
 
-class TestApplication : App() {
+@HiltAndroidTest
+class TestApplication {
 
-    private lateinit var testAppComponent: TestAppComponent
+    @get:Rule
+    var hiltRule = HiltAndroidRule(this)
 
-    override fun onCreate() {
-        super.onCreate()
-        testAppComponent = DaggerTestAppComponent.builder().application(this).build()
-        testAppComponent.inject(this)
+    @Test
+    fun runAppTest() {
+        ActivityScenario.launch(MainActivity::class.java)
     }
-
-    override fun androidInjector(): AndroidInjector<Any> = injector
-
-    @Inject
-    lateinit var injector: DispatchingAndroidInjector<Any>
 }
