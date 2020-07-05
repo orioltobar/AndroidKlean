@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
 import com.orioltobar.commons.error.ErrorModel
@@ -40,6 +41,8 @@ class GenreListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         genreListAdapter.setOnClickListener(onGenreClicked)
+        val layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
+        genreListRecyclerView.layoutManager = layoutManager
         genreListRecyclerView.adapter = genreListAdapter
 
         viewModel.genreLiveData.observe(
@@ -63,5 +66,7 @@ class GenreListFragment : BaseFragment() {
 
     companion object {
         const val TAG: String = "GenreListFragment"
+
+        private const val NUMBER_OF_COLUMNS = 2
     }
 }
