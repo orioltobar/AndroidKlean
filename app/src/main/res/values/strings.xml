@@ -3,5 +3,7 @@
     <string name="menu_list_movie">Movies</string>
     <string name="menu_list_discover">Discover</string>
     <string name="under_construction">Under construction</string>
-    <string name="rate">Rate: %s</string>
+    <string name="rate">Rate:</string>
+    <string name="release_date">Release date</string>
+    <string name="movie_summary">Summary</string>
 </resources>

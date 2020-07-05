@@ -18,6 +18,8 @@ import com.google.android.material.appbar.AppBarLayout
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
 import com.orioltobar.androidklean.extensions.getDominantColor
+import com.orioltobar.androidklean.extensions.gone
+import com.orioltobar.androidklean.extensions.visible
 import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.features.viewmodel.MovieViewModel
@@ -43,8 +45,6 @@ class MovieFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initAppBarListener()
-
         viewModel.execute(args.id)
         viewModel.movieDataStream.observe(
             viewLifecycleOwner,
@@ -54,12 +54,11 @@ class MovieFragment : BaseFragment() {
     private fun processNewValue(model: MovieModel) {
         movieFragmentTitle.text = model.title
 
-        movieFragmentReleaseDate.text = model.releaseDate
+        movieFragmentReleaseDateField.text = model.releaseDate
         movieFragmentOverview.text = model.overview
 
         context?.let {
-            movieFragmentRate.text =
-                it.resources.getString(R.string.rate, model.voteAverage.toString())
+            movieFragmentRateField.text = model.voteAverage.toString()
             // Image
             Glide.with(it)
                 .load(model.frontImageUrl)
@@ -89,8 +88,12 @@ class MovieFragment : BaseFragment() {
                 .into(movieFragmentImage)
         }
 
-        progressBar.visibility = View.GONE
-        movieFragmentSwipeAnimation.visibility = View.VISIBLE
+        if (checkIfSwipeAnimationIsNeeded()) {
+            initAppBarListener()
+        } else {
+            movieFragmentSwipeAnimation.gone()
+        }
+        progressBar.gone()
     }
 
     override fun onError(error: ErrorModel) {
@@ -98,18 +101,25 @@ class MovieFragment : BaseFragment() {
     }
 
     override fun onLoading() {
-        progressBar.visibility = View.VISIBLE
+        progressBar.visible()
         println("TRACK STATUS: LOADING...")
     }
 
     private fun initAppBarListener() {
         movieFragmentAppbar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
             if (abs(verticalOffset) > 0) {
-                movieFragmentSwipeAnimation.visibility = View.GONE
+                movieFragmentSwipeAnimation.gone()
             } else {
-                movieFragmentSwipeAnimation.visibility = View.VISIBLE
+                movieFragmentSwipeAnimation.visible()
             }
         })
+    }
+
+    private fun checkIfSwipeAnimationIsNeeded(): Boolean {
+        val viewRawHeight = plant_detail_scrollview.measuredHeight
+        val contentHeight = plant_detail_scrollview.getChildAt(0)?.height ?: 0
+
+        return viewRawHeight - contentHeight < 0
     }
 
     companion object {

@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     app:startDestination="@id/menuGenresListButton">
 
     <fragment
         android:id="@+id/movieListFragment"
         android:name="com.orioltobar.androidklean.view.movielist.MovieListFragment"
-        android:label="MovieListFragment">
+        android:label="MovieListFragment"
+        tools:layout="@layout/movie_list_fragment">
 
         <action
             android:id="@+id/action_movieListFragment_to_movieFragment"
             app:destination="@id/movieFragment" />
         <argument
             android:name="id"
-            app:argType="integer"
-            android:defaultValue="-1" />
+            android:defaultValue="-1"
+            app:argType="integer" />
 
     </fragment>
 
     <fragment
         android:id="@+id/movieFragment"
         android:name="com.orioltobar.androidklean.view.movie.MovieFragment"
-        android:label="MovieFragment">
+        android:label="MovieFragment"
+        tools:layout="@layout/movie_fragment">
 
         <argument
             android:name="id"
@@ -34,11 +37,14 @@
     <fragment
         android:id="@+id/menuFavouritesListButton"
         android:name="com.orioltobar.androidklean.view.discover.DiscoverFragment"
-        android:label="DiscoverFragment" />
+        android:label="DiscoverFragment"
+        tools:layout="@layout/discover_fragment" />
+
     <fragment
         android:id="@+id/menuGenresListButton"
         android:name="com.orioltobar.androidklean.view.genrelist.GenreListFragment"
-        android:label="GenreListFragment" >
+        android:label="GenreListFragment"
+        tools:layout="@layout/genre_list_fragment">
         <action
             android:id="@+id/action_genreListFragment_to_menuMovieListButton"
             app:destination="@id/movieListFragment" />
