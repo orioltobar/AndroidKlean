@@ -26,7 +26,7 @@ class MovieDataSourceImpl @Inject constructor(
         safeApiCall {
             movieService.getMovieGenreList(genreId = genreId)
         }.mapResponse {
-            it.movieList.map(movieMapper::map)
+            it.movies?.map(movieMapper::map) ?: emptyList()
         }
 
     override suspend fun getMovie(id: Long): Response<ErrorModel, MovieModel> =

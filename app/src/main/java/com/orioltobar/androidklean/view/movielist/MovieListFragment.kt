@@ -8,8 +8,10 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.GridLayoutManager
 import com.orioltobar.androidklean.R
 import com.orioltobar.androidklean.base.BaseFragment
+import com.orioltobar.androidklean.view.ItemOffsetDecoration
 import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.features.viewmodel.MovieListViewModel
@@ -43,6 +45,12 @@ class MovieListFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         movieListAdapter.setOnClickListener(onMovieClick)
+        val itemWidth = resources.displayMetrics.widthPixels / NUMBER_OF_COLUMNS - LIST_ITEM_OFFSET
+        movieListAdapter.itemWidth = itemWidth
+        val layoutManager = GridLayoutManager(context, NUMBER_OF_COLUMNS)
+        val itemOffsetDecoration = ItemOffsetDecoration(10)
+        movieListRecyclerView.addItemDecoration(itemOffsetDecoration)
+        movieListRecyclerView.layoutManager = layoutManager
         movieListRecyclerView.adapter = movieListAdapter
 
         viewModel.getMovieListFromGenre(navArgs.id)
@@ -72,5 +80,9 @@ class MovieListFragment : BaseFragment() {
 
     companion object {
         const val TAG = "MovieListFragment"
+
+        private const val NUMBER_OF_COLUMNS = 3
+
+        private const val LIST_ITEM_OFFSET = 50
     }
 }

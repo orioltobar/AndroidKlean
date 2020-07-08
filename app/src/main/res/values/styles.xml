@@ -58,4 +58,18 @@
         <item name="android:textSize">@dimen/text_size_m</item>
     </style>
 
+    <!-- Movie view holder -->
+    <style name="App.MovieList">
+        <item name="android:fontFamily">@font/raleway_bold</item>
+        <item name="android:padding">@dimen/padding_small</item>
+        <item name="android:textSize">@dimen/text_size_xs</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="App.MovieList.Rate">
+        <item name="android:fontFamily">@font/raleway_bold</item>
+        <item name="android:textSize">@dimen/text_size_s</item>
+    </style>
+
 </resources>

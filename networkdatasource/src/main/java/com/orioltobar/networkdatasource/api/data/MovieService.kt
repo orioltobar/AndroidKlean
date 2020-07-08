@@ -3,6 +3,7 @@ package com.orioltobar.networkdatasource.api.data
 import com.orioltobar.networkdatasource.api.models.MovieApiModel
 import com.orioltobar.networkdatasource.api.models.MovieGenresApiModel
 import com.orioltobar.networkdatasource.api.models.MovieListApiModel
+import com.orioltobar.networkdatasource.api.models.MoviePageApiModel
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -29,7 +30,7 @@ interface MovieService {
         @Query(INCLUDE_VIDEO) includeVideo: Boolean = false,
         @Query(PAGE_ID) pageId: Int = 1,
         @Query(GENRE_ID) genreId: Int
-    ): MovieListApiModel
+    ): MoviePageApiModel
 
     companion object {
         private const val MOVIE_ID = "movie_id"
