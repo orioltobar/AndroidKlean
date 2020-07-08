@@ -11,6 +11,7 @@ class MovieGenreDetailMapper @Inject constructor() :
     override fun map(from: MovieGenreDetailApiModel?): MovieGenreDetailModel =
         MovieGenreDetailModel(
             from?.id ?: -1,
-            from?.name ?: ""
+            from?.name ?: "",
+            ""
         )
 }

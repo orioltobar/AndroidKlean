@@ -72,4 +72,12 @@
         <item name="android:textSize">@dimen/text_size_s</item>
     </style>
 
+    <!-- Genre view holder -->
+    <style name="App.GenreList">
+        <item name="android:textAllCaps">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">@dimen/text_size_m_3</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
 </resources>

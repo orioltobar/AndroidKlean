@@ -17,4 +17,6 @@ interface MovieRepository {
     suspend fun getMovieListByGenre(genreId: Int): Response<ErrorModel, List<MovieModel>>
 
     suspend fun getMovieGenres(): Response<ErrorModel, List<MovieGenreDetailModel>>
+
+    suspend fun saveMovieGenres(genres: List<MovieGenreDetailModel>)
 }

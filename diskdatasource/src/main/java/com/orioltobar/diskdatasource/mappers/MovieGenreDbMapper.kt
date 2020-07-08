@@ -11,11 +11,13 @@ class MovieGenreDbMapper @Inject constructor() : Mapper<MovieGenreDbModel, Movie
     override fun map(from: MovieGenreDbModel?): MovieGenreDetailModel =
         MovieGenreDetailModel(
             from?.id ?: -1,
-            from?.name ?: ""
+            from?.name ?: "",
+            from?.coverImage ?: ""
         )
 
     fun mapToDbModel(from: MovieGenreDetailModel): MovieGenreDbModel = MovieGenreDbModel(
         from.id,
-        from.name
+        from.name,
+        from.coverUrl
     )
 }

@@ -103,6 +103,11 @@ class MovieRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun saveMovieGenres(genres: List<MovieGenreDetailModel>) =
+        genres.forEach {
+            dbDataSource.saveGenre(it)
+        }
+
     /**
      * Executes the genre call ASAP in order to store it in the database if they weren't.
      */

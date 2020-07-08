@@ -6,5 +6,6 @@ data class MovieGenresModel(
 
 data class MovieGenreDetailModel(
     val id: Int,
-    val name: String
+    val name: String,
+    var coverUrl: String
 )
