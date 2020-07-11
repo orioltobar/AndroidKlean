@@ -22,6 +22,20 @@ inline fun <T, V> Response<ErrorModel, T>.mapResponse(lambda: (T) -> V): Respons
 }
 
 /**
+ * The response of [T] is flatMapped using a [lambda] to return a new [Result] type [V].
+ * e.g.: Success(List<T>) -> Success(List<V>).
+ */
+inline fun <T, V> Response<ErrorModel, T>.flatMap(lambda: (T) -> Response<ErrorModel, V>): Response<ErrorModel, V> =
+    when (this) {
+        is Success -> {
+            lambda(this.result)
+        }
+        is Failure -> {
+            this
+        }
+    }
+
+/**
  * Either uses [onSuccess] to define a success callback if the result is Success. [onFailure]
  * defines the action to take if the call failed.
  *

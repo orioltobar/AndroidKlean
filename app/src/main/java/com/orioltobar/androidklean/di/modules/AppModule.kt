@@ -1,5 +1,8 @@
 package com.orioltobar.androidklean.di.modules
 
+import android.app.Application
+import android.content.Context.MODE_PRIVATE
+import android.content.SharedPreferences
 import com.orioltobar.androidklean.di.BaseUrl
 import com.orioltobar.commons.AppDispatchers
 import com.orioltobar.commons.Constants.API_KEY
@@ -38,4 +41,10 @@ object AppModule {
         override val default: CoroutineDispatcher = Dispatchers.Default
         override val unconfined: CoroutineDispatcher = Dispatchers.Unconfined
     }
+
+    @Provides
+    fun provideSharedPreferences(application: Application): SharedPreferences =
+        application.applicationContext.getSharedPreferences(FILE_NAME_STORE_MODE, MODE_PRIVATE)
 }
+
+private const val FILE_NAME_STORE_MODE: String = "CacheSharedPreferences"

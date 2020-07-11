@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.orioltobar.commons.Constants
 import com.orioltobar.commons.Success
 import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.commons.valueOrNull
@@ -41,12 +42,12 @@ class MovieGenresViewModel @ViewModelInject constructor(
 
     private suspend fun getGenreImageCover(genres: List<MovieGenreDetailModel>) = supervisorScope {
         val genreWithCoverImages = mutableListOf<MovieGenreDetailModel>()
-        val filteredList = genres.filter { it.coverUrl.isEmpty() }
+        val filteredList = genres.filter { it.coverUrl.isEmpty() || it.coverUrl == Constants.IMAGE_BASE_URL }
         val request =
             filteredList.map { genre -> async { genre to getMovieListByGenreUseCase.invoke(genre.id) } }
         request.awaitAll().forEach { response ->
             val cover =
-                response.second.valueOrNull()?.let { it[Random.nextInt(0, it.size)].frontImageUrl }
+                response.second.valueOrNull()?.let { it[Random.nextInt(0, it.size - 1)].frontImageUrl }
                     ?: ""
             genres.find { it.id == response.first.id }?.let { it.coverUrl = cover }
             genreWithCoverImages.add(

@@ -1,8 +1,10 @@
 package com.orioltobar.androidklean.di.modules
 
+import com.orioltobar.data.datasources.CacheDataSource
 import com.orioltobar.data.datasources.DbDataSource
 import com.orioltobar.data.datasources.NetworkDataSource
 import com.orioltobar.data.repositories.MovieRepositoryImpl
+import com.orioltobar.diskdatasource.data.CacheDataSourceImpl
 import com.orioltobar.diskdatasource.data.MovieDataBaseImpl
 import com.orioltobar.domain.repositories.MovieRepository
 import com.orioltobar.networkdatasource.api.data.MovieDataSourceImpl
@@ -30,4 +32,8 @@ interface ApplicationDataBindsModule {
     @Binds
     @Singleton
     fun provideMovieDataBaseDataSource(dataSource: MovieDataBaseImpl): DbDataSource
+
+    @Binds
+    @Singleton
+    fun provideCacheDataSource(dataSource: CacheDataSourceImpl) : CacheDataSource
 }

@@ -4,41 +4,45 @@ import com.orioltobar.commons.Failure
 import com.orioltobar.commons.Response
 import com.orioltobar.commons.Success
 import com.orioltobar.data.datasources.DbDataSource
-import com.orioltobar.diskdatasource.Cache
+import com.orioltobar.commons.Cache
 import com.orioltobar.diskdatasource.dao.MovieDao
 import com.orioltobar.diskdatasource.dao.MovieGenreDao
 import com.orioltobar.diskdatasource.mappers.MovieDbMapper
 import com.orioltobar.diskdatasource.mappers.MovieGenreDbMapper
-import com.orioltobar.diskdatasource.models.MovieDbModel
 import com.orioltobar.commons.error.ErrorModel
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
 import com.orioltobar.domain.models.movie.MovieGenresModel
 import com.orioltobar.domain.models.movie.MovieModel
 import javax.inject.Inject
 import com.orioltobar.commons.error.DbError.QueryError
+import com.orioltobar.commons.error.DbError.CacheError
+import com.orioltobar.commons.flatMap
+import com.orioltobar.data.datasources.CacheDataSource
+import java.util.*
 
 class MovieDataBaseImpl @Inject constructor(
     private val movieDao: MovieDao,
     private val movieGenreDao: MovieGenreDao,
     private val movieDbMapper: MovieDbMapper,
-    private val movieGenreDbMapper: MovieGenreDbMapper
+    private val movieGenreDbMapper: MovieGenreDbMapper,
+    private val cacheDataSourceImpl: CacheDataSource
 ) : DbDataSource {
 
     override suspend fun getMovieList(pageId: Int): Response<ErrorModel, List<MovieModel>> {
         return movieDao.getMovies().takeIf { it.isNotEmpty() }?.let { list ->
-            processDbResponse(list)
-        } ?: Failure(ErrorModel("Error in MovieDataBase", QueryError) )
+            checkCache(list).flatMap { Success(it.map(movieDbMapper::map)) }
+        } ?: Failure(ErrorModel("Error in MovieDataBase", QueryError))
     }
 
     override suspend fun getMoviePageByGenre(genreId: Int): Response<ErrorModel, List<MovieModel>> {
         return movieDao.getMoviesByGenre(genreId).takeIf { it.isNotEmpty() }?.let { list ->
-            processDbResponse(list)
+            checkCache(list).flatMap { Success(it.map(movieDbMapper::map)) }
         } ?: Failure(ErrorModel("Error in MovieDataBase", QueryError))
     }
 
     override suspend fun getMovie(id: Long): Response<ErrorModel, MovieModel> =
-        movieDao.getMovie(id)?.let {
-            Cache.checkTimestampCache(it.timeStamp, movieDbMapper.map(it))
+        movieDao.getMovie(id)?.let { movie ->
+            checkCache(movie).flatMap { Success(movieDbMapper.map(movie)) }
         } ?: run { Failure(ErrorModel("", QueryError)) }
 
     override suspend fun saveMovie(movie: MovieModel) {
@@ -52,33 +56,24 @@ class MovieDataBaseImpl @Inject constructor(
         movieGenreDao.getGenres()
             .takeIf { it.isNotEmpty() }
             ?.let { list ->
-                Success(MovieGenresModel(list.map(movieGenreDbMapper::map)))
-            } ?: Failure(ErrorModel("", QueryError))
+                val result = checkCache(list)
+                result.flatMap {
+                    Success(MovieGenresModel(it.map(movieGenreDbMapper::map)))
+                }
+            } ?: Failure(ErrorModel("Error in MovieDataBase", QueryError))
 
     /**
-     * Process the [list] of db models retrieved by the database in order to check if the cache is
-     * expired or the response is empty. In that case a Failure is returned.
+     * Checks if the cache is expired.
      */
-    private suspend fun processDbResponse(list: List<MovieDbModel>): Response<ErrorModel, List<MovieModel>> {
-        val movieList: MutableList<MovieModel> = mutableListOf()
-        for (model in list) {
-            val movie = Cache.checkTimestampCache(model.timeStamp, movieDbMapper.map(model))
-            if (movie is Success) {
-                val genres = movieGenreDao.getGenres()
-                val genresFiltered = movie.result.genreIds.flatMap { ids ->
-                    genres.filter { it.id == ids }.map(movieGenreDbMapper::map)
-                }
-                movie.result.genres = MovieGenresModel(genresFiltered)
-                movieList.add(movie.result)
-            } else {
-                movieList.clear()
-                break
-            }
-        }
-        return if (movieList.isNotEmpty()) {
-            Success(movieList.toList())
+    private fun <T> checkCache(model: T): Response<ErrorModel, T> {
+        val cacheTimestamp = cacheDataSourceImpl.getCacheTimestamp()
+        val cacheResult = Cache.checkTimestampCache(cacheTimestamp)
+        return if (cacheResult) {
+            Success(model)
         } else {
-            Failure(ErrorModel("Error in MovieDataBase", QueryError))
+            // Set new cache value.
+            cacheDataSourceImpl.saveCacheTimestamp(Date().time)
+            Failure(ErrorModel(("Cache Expired"), CacheError))
         }
     }
 }
