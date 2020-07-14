@@ -9,9 +9,6 @@ data class MovieDbModel(
     @PrimaryKey
     val id: Long,
 
-    @ColumnInfo(name = "main_genre_id")
-    val mainGenreId: Int,
-
     @ColumnInfo(name = "original_title")
     val originalTitle: String,
 

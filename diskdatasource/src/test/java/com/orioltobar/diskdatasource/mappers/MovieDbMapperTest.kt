@@ -14,7 +14,7 @@ class MovieDbMapperTest {
     fun `Map non-null received API values`() {
         val dbModel =
             MovieDbModel(
-                12, 1, "Test",
+                12, "Test",
                 "Test", 1.0F, 1, true,
                 "/front", false, "/back",
                 "en", listOf(12, 34), 5.0F,
@@ -34,7 +34,6 @@ class MovieDbMapperTest {
         assertEquals(dbModel.backImageUrl, model.backImageUrl)
         assertEquals(dbModel.originalLanguage, model.originalLanguage)
         assertEquals(dbModel.genreIds, model.genreIds)
-        assertEquals(dbModel.genreIds.getOrNull(0), model.mainGenreId)
         assertEquals(dbModel.voteAverage, model.voteAverage)
         assertEquals(dbModel.overview, model.overview)
         assertEquals(dbModel.releaseDate, model.releaseDate)
@@ -46,7 +45,7 @@ class MovieDbMapperTest {
             1, "Test",
             "Test", 1.0F, 1, true,
             "/front", false, "/back",
-            "en", listOf(12, 34), 12, 5.0F,
+            "en", listOf(12, 34), 5.0F,
             "overview", "1978"
         )
 
@@ -63,7 +62,7 @@ class MovieDbMapperTest {
         assertEquals(model.backImageUrl, dbModel.backImageUrl)
         assertEquals(model.originalLanguage, dbModel.originalLanguage)
         assertEquals(model.genreIds, dbModel.genreIds)
-        assertEquals(model.genreIds.getOrNull(0), dbModel.mainGenreId)
+//        assertEquals(model.genreIds.getOrNull(0), dbModel.mainGenreId)
         assertEquals(model.voteAverage, dbModel.voteAverage)
         assertEquals(model.overview, dbModel.overview)
         assertEquals(model.releaseDate, dbModel.releaseDate)
@@ -84,7 +83,6 @@ class MovieDbMapperTest {
         assertEquals("", model.backImageUrl)
         assertEquals("", model.originalLanguage)
         assertEquals(0, model.genreIds.size)
-        assertEquals(Constants.DEFAULT_GENRE_ID, model.mainGenreId)
         assertEquals(0.0F, model.voteAverage)
         assertEquals("", model.overview)
         assertEquals("", model.releaseDate)

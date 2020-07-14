@@ -12,7 +12,6 @@ data class MovieModel(
     val backImageUrl: String,
     val originalLanguage: String,
     val genreIds: List<Int>,
-    var mainGenreId: Int,
     val voteAverage: Float,
     val overview: String,
     val releaseDate: String

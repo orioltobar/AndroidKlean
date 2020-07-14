@@ -1,6 +1,5 @@
 package com.orioltobar.diskdatasource.mappers
 
-import com.orioltobar.commons.Constants
 import com.orioltobar.commons.Mapper
 import com.orioltobar.diskdatasource.models.MovieDbModel
 import com.orioltobar.domain.models.movie.MovieModel
@@ -22,7 +21,6 @@ class MovieDbMapper @Inject constructor() : Mapper<MovieDbModel, MovieModel> {
             from?.backImageUrl ?: "",
             from?.originalLanguage ?: "",
             from?.genreIds ?: emptyList(),
-            from?.genreIds?.getOrNull(0) ?: Constants.DEFAULT_GENRE_ID,
             from?.voteAverage ?: 0.0F,
             from?.overview ?: "",
             from?.releaseDate ?: ""
@@ -31,7 +29,6 @@ class MovieDbMapper @Inject constructor() : Mapper<MovieDbModel, MovieModel> {
     fun mapToDbModel(from: MovieModel): MovieDbModel =
         MovieDbModel(
             from.id,
-            from.genreIds.getOrNull(0) ?: Constants.DEFAULT_GENRE_ID,
             from.originalTitle,
             from.title,
             from.popularity,

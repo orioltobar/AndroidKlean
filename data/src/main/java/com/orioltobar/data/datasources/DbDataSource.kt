@@ -16,6 +16,8 @@ interface DbDataSource {
 
     suspend fun saveMovie(movie: MovieModel)
 
+    suspend fun saveGenrePage(genreId: Int, page: Int, movies: List<MovieModel>)
+
     suspend fun getGenres(): Response<ErrorModel, MovieGenresModel>
 
     suspend fun saveGenre(genre: MovieGenreDetailModel)

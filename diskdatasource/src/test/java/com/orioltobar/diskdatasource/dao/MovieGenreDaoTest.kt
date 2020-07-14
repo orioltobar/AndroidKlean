@@ -33,7 +33,7 @@ class MovieGenreDaoTest {
     @Test
     fun insertAndGetGenreToDbTest() {
         testBlocking {
-            val dbModel = MovieGenreDbModel(12, "Action")
+            val dbModel = MovieGenreDbModel(12, "Action", "", 123456L)
 
             appDataBase.movieGenreDao().setGenre(dbModel)
             val result = appDataBase.movieGenreDao().getGenres()
@@ -45,7 +45,7 @@ class MovieGenreDaoTest {
     @Test
     fun removeItemFromDbTest() {
         testBlocking {
-            val dbModel = MovieGenreDbModel(12, "Action")
+            val dbModel = MovieGenreDbModel(12, "Action", "", 12345L)
 
             appDataBase.movieGenreDao().setGenre(dbModel)
             appDataBase.movieGenreDao().deleteGenre(dbModel)

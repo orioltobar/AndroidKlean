@@ -13,7 +13,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
-import kotlinx.android.synthetic.main.movie_list_item.view.*
+import kotlinx.android.synthetic.main.movie_list_item_a.view.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -52,7 +52,7 @@ class MovieListViewHolderTest : UiAssertions {
     fun setup() {
         activityRule.launchActivity(null)
 
-        every { genresModel.genre } returns listOf(MovieGenreDetailModel(12, "Action"))
+        every { genresModel.genre } returns listOf(MovieGenreDetailModel(12, "Action", "https://image.tmdb.org/t/p/w300/6sjMsBcIuqU44GpG5tL33KUFOQR.jpg"))
         every { movieModel.title } returns "Title test"
         every { movieModel.voteAverage } returns 5.0F
         every { movieModel.originalLanguage } returns "English"

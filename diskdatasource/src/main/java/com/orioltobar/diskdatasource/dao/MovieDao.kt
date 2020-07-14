@@ -6,10 +6,10 @@ import com.orioltobar.diskdatasource.models.MovieDbModel
 @Dao
 interface MovieDao {
 
-    @Query("SELECT * FROM movies")
+    @Query("SELECT * FROM movies ORDER BY popularity DESC")
     suspend fun getMovies(): List<MovieDbModel>
 
-    @Query("SELECT * FROM movies WHERE main_genre_id == :genreId")
+    @Query("SELECT * FROM movies WHERE genre_ids LIKE '%' || :genreId || ',%' OR genre_ids LIKE '%,' || :genreId || '%'")
     suspend fun getMoviesByGenre(genreId: Int): List<MovieDbModel>
 
     @Query("SELECT * FROM movies WHERE id == :id")

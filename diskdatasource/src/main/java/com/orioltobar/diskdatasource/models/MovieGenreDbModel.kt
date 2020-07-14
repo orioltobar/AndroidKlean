@@ -13,5 +13,8 @@ data class MovieGenreDbModel(
     val name: String,
 
     @ColumnInfo(name = "cover_image")
-    val coverImage: String
+    val coverImage: String,
+
+    @ColumnInfo(name = "timestamp")
+    val timestamp: Long
 )

@@ -11,7 +11,7 @@ class MovieGenreDbMapperTest {
 
     @Test
     fun `Map non-null received API values`() {
-        val dbModel = MovieGenreDbModel(12, "Action")
+        val dbModel = MovieGenreDbModel(12, "Action", "", 12345L)
 
         val model = mapper.map(dbModel)
 
@@ -21,7 +21,7 @@ class MovieGenreDbMapperTest {
 
     @Test
     fun `MapToDb non-null received API values`() {
-        val model = MovieGenreDetailModel(12, "Action")
+        val model = MovieGenreDetailModel(12, "Action", "")
 
         val dbModel = mapper.mapToDbModel(model)
 

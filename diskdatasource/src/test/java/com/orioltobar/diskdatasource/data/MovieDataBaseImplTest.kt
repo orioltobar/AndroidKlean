@@ -17,7 +17,7 @@ import org.robolectric.RobolectricTestRunner
 
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
-class MovieDataBaseTestImpl {
+class MovieDataBaseImplTest {
 
     init {
         MockKAnnotations.init(this, relaxUnitFun = true)
@@ -99,7 +99,7 @@ class MovieDataBaseTestImpl {
     fun `getGenres() must call database getGenres()`() =
         runBlockingTest {
             // When
-            val result = dbDataSource.getGenres()
+            dbDataSource.getGenres()
 
             // Then
             coVerify(exactly = 1) {
@@ -116,7 +116,7 @@ class MovieDataBaseTestImpl {
         runBlockingTest {
             // When
             val pageId = 1
-            val result = dbDataSource.getMovieList(pageId)
+            dbDataSource.getMovieList(pageId)
 
             // Then
             coVerify(exactly = 1) {

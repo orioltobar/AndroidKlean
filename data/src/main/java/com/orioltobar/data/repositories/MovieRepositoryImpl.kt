@@ -9,7 +9,6 @@ import com.orioltobar.commons.singleSourceOfTruth
 import com.orioltobar.data.datasources.DbDataSource
 import com.orioltobar.data.datasources.NetworkDataSource
 import com.orioltobar.domain.models.movie.MovieGenreDetailModel
-import com.orioltobar.domain.models.movie.MovieGenresModel
 import com.orioltobar.domain.models.movie.MovieModel
 import com.orioltobar.domain.repositories.MovieRepository
 import kotlinx.coroutines.delay
@@ -37,22 +36,15 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMovie(id: Long): Response<ErrorModel, MovieModel> {
-        val genresList = initOrReturnGenresArray()
         return singleSourceOfTruth(
             dbDataSource = {
                 val movie = dbDataSource.getMovie(id)
-                if (movie is Success) {
-                    movie.result.genres = getSelectedGenresFromList(movie.result, genresList)
-                }
                 movie
             },
             networkDataSource = { dataSource.getMovie(id) },
             dbCallback = { apiResult ->
                 dbDataSource.saveMovie(apiResult)
                 val movie = dbDataSource.getMovie(id)
-                if (movie is Success) {
-                    movie.result.genres = getSelectedGenresFromList(movie.result, genresList)
-                }
                 movie
             }
         )
@@ -82,17 +74,19 @@ class MovieRepositoryImpl @Inject constructor(
     }
 
     override suspend fun getMovieListByGenre(genreId: Int): Response<ErrorModel, List<MovieModel>> {
-        val genresList = initOrReturnGenresArray()
-        val request = dataSource.getMoviePageByGenre(genreId)
-        if (request is Success) {
-            request.result.map { movie ->
-                movie.mainGenreId = genreId
-                movie.genres = getSelectedGenresFromList(movie, genresList)
+        return singleSourceOfTruth(
+            dbDataSource = { dbDataSource.getMoviePageByGenre(genreId) },
+            networkDataSource = { dataSource.getMoviePageByGenre(genreId) },
+            dbCallback = { apiResult ->
+                apiResult.map { movie ->
+                    dbDataSource.saveMovie(movie)
+                }
+                dbDataSource.saveGenrePage(genreId, 1, apiResult)
+                dbDataSource.getMoviePageByGenre(genreId)
             }
-
-        }
-        return request
+        )
     }
+
 
     override suspend fun getMovieGenres(): Response<ErrorModel, List<MovieGenreDetailModel>> {
         val genres = getGenres()
@@ -126,16 +120,5 @@ class MovieRepositoryImpl @Inject constructor(
         } else {
             emptyList()
         }
-    }
-
-    /**
-     * Retrieves the main genre of the [movie] using a [genres] list.
-     */
-    private fun getSelectedGenresFromList(
-        movie: MovieModel,
-        genres: List<MovieGenreDetailModel>
-    ): MovieGenresModel {
-        val filteredList = genres.filter { it.id == movie.mainGenreId }
-        return MovieGenresModel(filteredList)
     }
 }
