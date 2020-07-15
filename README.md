@@ -1,6 +1,7 @@
 # [WorkInProgress] Movie Klean Playground
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa18f20faa4f45ecb4058a8ddb877fff)](https://app.codacy.com/manual/orioltobar/AndroidKlean?utm_source=github.com&utm_medium=referral&utm_content=orioltobar/AndroidKlean&utm_campaign=Badge_Grade_Dashboard)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/aa18f20faa4f45ecb4058a8ddb877fff)](https://app.codacy.com/manual/orioltobar/AndroidKlean?utm_source=github.com&utm_medium=referral&utm_content=orioltobar/AndroidKlean&utm_campaign=Badge_Grade_Dashboard)
 
 Sample Android App to access to TheMovieDatabase API.
 
