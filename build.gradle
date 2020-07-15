@@ -15,6 +15,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${Versions.kotlin_version}"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:${Versions.navigation_version}"
         classpath "com.google.dagger:hilt-android-gradle-plugin:${Versions.hilt_version}"
+        classpath "com.google.gms:google-services:${Versions.google_services_version}"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts.gradle files
     }

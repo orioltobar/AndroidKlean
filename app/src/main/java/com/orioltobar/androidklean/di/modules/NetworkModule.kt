@@ -1,5 +1,6 @@
 package com.orioltobar.androidklean.di.modules
 
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.orioltobar.commons.Constants
 import com.orioltobar.androidklean.di.BaseUrl
 import com.orioltobar.networkdatasource.interceptors.UrlParamInterceptor
@@ -55,11 +56,11 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideNetworkProvider(
-        @Named(Constants.API_KEY) apiKey: String,
+        firebaseRemoteConfig: FirebaseRemoteConfig,
         @Named(Constants.USER_LANGUAGE) language: String
     ): NetworkProvider = object : NetworkProvider {
         override val apiKey: String
-            get() = apiKey
+            get() = firebaseRemoteConfig.getString(Constants.API_KEY)
         override val language: String
             get() = language
     }

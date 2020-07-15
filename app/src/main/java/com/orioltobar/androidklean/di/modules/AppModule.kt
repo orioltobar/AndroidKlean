@@ -5,7 +5,6 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import com.orioltobar.androidklean.di.BaseUrl
 import com.orioltobar.commons.AppDispatchers
-import com.orioltobar.commons.Constants.API_KEY
 import com.orioltobar.commons.Constants.USER_LANGUAGE
 import dagger.Module
 import dagger.Provides
@@ -20,10 +19,6 @@ import javax.inject.Singleton
 @InstallIn(ApplicationComponent::class)
 @Module
 object AppModule {
-
-    @Provides
-    @Named(API_KEY)
-    fun provideApiKey(): String = "96ef4725a812eee12b2943a66e535799"
 
     @Provides
     @Named(USER_LANGUAGE)

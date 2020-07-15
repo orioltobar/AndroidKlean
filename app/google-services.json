@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "967622063453",
+    "firebase_url": "https://androidklean.firebaseio.com",
+    "project_id": "androidklean",
+    "storage_bucket": "androidklean.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:967622063453:android:b1ebaec5df6b4bfe64e4b4",
+        "android_client_info": {
+          "package_name": "com.orioltobar.androidklean"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "967622063453-vs5ukdelpiba0fhovhdlb7i5flsvvt88.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7mWNCUt5sXEb6P8ROXfF9lTsPuc-fRFQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "967622063453-vs5ukdelpiba0fhovhdlb7i5flsvvt88.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,14 +6,15 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "com.orioltobar.androidklean"
         minSdkVersion 23
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "com.orioltobar.androidklean.di.TestRunner"
@@ -40,6 +41,10 @@ dependencies {
     implementation project(':networkdatasource')
     implementation project(':presentation')
 
+    // Firebase
+    implementation "com.google.firebase:firebase-config-ktx:${Versions.firebase_config_ktx_version}"
+    implementation "com.google.firebase:firebase-analytics-ktx:${Versions.firebase_analytics_ktx_version}"
+
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:${Versions.kotlin_version}"
 
@@ -58,7 +63,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines_version}"
 
     // Lifecyle
-    implementation "androidx.lifecycle:lifecycle-runtime:${Versions.androidx_lifecycle}"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.androidx_lifecycle}"
 
     // Lottie

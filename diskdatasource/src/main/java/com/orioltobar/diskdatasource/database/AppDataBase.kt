@@ -13,7 +13,7 @@ import com.orioltobar.diskdatasource.models.MovieGenreDbModel
 import com.orioltobar.diskdatasource.models.MovieGenreListDbModel
 
 @Database(
-    version = 1,
+    version = 2,
     entities = [
         MovieDbModel::class,
         MovieGenreDbModel::class,
